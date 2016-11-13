@@ -3,7 +3,10 @@ package com.lsj.Trans;
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
+
+import com.lsj.Trans.Params.HttpGetParams;
+
+import net.sf.json.JSONArray;
 
 public class GoogleDispatch extends Dispatch {
 	private static ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
@@ -40,7 +43,14 @@ public class GoogleDispatch extends Dispatch {
 		params.put("tk", tk(query));
 		params.put("q", query);
 		
-		return execute(params);
+		String jsonString = execute(params);
+		
+		return ParseJsonString(jsonString);
+	}
+	
+	private String ParseJsonString(String jsonString){
+		JSONArray jsonArray = JSONArray.fromObject(jsonString);
+		return jsonArray.getJSONArray(0).getJSONArray(0).getString(0);
 	}
 	
 	private String tk(String val) throws Exception{
