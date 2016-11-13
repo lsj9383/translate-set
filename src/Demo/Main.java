@@ -12,7 +12,7 @@ public class Main {
 		System.out.println(new YouDaoDispatch().Trans(null, null, "i am king"));
 		System.out.println(new BaiduDispatch().Trans(null, null, "i am king"));
 		System.out.println(new YiyunDispatch().Trans(null, null, "i am king"));
-		System.out.println(new GoogleDispatch().Trans(null, null, "i am king"));
+		System.out.println(new GoogleDispatch().Trans(null, null, "i am king."));
 	}
 
 }

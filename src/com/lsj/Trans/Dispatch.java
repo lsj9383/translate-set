@@ -11,9 +11,9 @@ public abstract class Dispatch {
 	protected String base;
 	private CloseableHttpClient httpClient = HttpClients.createDefault();
 	
-	protected String execute(HttpParams form) throws Exception{
+	protected String execute(HttpParams params) throws Exception{
 		
-		HttpUriRequest request = form.RequestCreateByUrl(base);
+		HttpUriRequest request = params.RequestCreateByUrl(base);		//根据不同的参数情况，创建不同的request(get或post)
 		CloseableHttpResponse response = httpClient.execute(request);
 		
 		InputStream inputStream = response.getEntity().getContent();

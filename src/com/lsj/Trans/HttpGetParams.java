@@ -1,11 +1,9 @@
 package com.lsj.Trans;
 
-import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.utils.URIBuilder;
 
@@ -26,7 +24,6 @@ public class HttpGetParams implements HttpParams{
 		}
 		
 		HttpGet request = new HttpGet(uri.toString());
-		
 		
 		return request;
 	}
