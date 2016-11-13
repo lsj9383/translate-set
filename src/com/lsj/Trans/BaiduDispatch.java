@@ -7,7 +7,7 @@ public class BaiduDispatch extends Dispatch {
 	
 	public String Trans(String from, String targ, String query) throws Exception{
 		
-		HttpForm form = new HttpForm();
+		HttpPostParams form = new HttpPostParams();
 		
 		form.put("from", "en");
 		form.put("to", "zh");

@@ -7,7 +7,7 @@ public class YouDaoDispatch extends Dispatch {
 	
 	public String Trans(String from, String targ, String query) throws Exception{
 		
-		HttpForm form = new HttpForm();
+		HttpPostParams form = new HttpPostParams();
 		
 		form.put("type", "EN2ZH_CN");
 		form.put("i", query);
