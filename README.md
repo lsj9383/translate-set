@@ -1,7 +1,8 @@
 #TranslateSet
-一种小型的翻译集合工具。[这里]()是一个简单示例。考虑引入反射，进一步降低耦合。
+一种小型的翻译集合工具。[这里](https://github.com/lsj9383/TranslateSet/blob/master/src/Demo/Main.java)是一个简单示例。考虑引入反射，进一步降低耦合。
 
-#一、开始
+#开始
+在创建工程是需要进行包依赖，这些包依赖都在lib文件夹下。更多的请看**附录：包依赖**
 ###1.引入包
 ```java
 import com.lsj.Trans.Dispatch;
@@ -23,7 +24,7 @@ String zhResult = dispatch.Trans("en", "zh", "Learn Git and GitHub without any c
 String enResult = dispatch.Trans("zh", "en", "希拉里败选后大哭");							//中文翻译为英文
 ```
 
-#附录、包依赖:
+#附录：包依赖:
 TranslateSet，依赖了两个第三方模块:HttpClient和Json。
 * HttpClient jar
 	* commons-codec-1.9.jar
