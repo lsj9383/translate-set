@@ -1,8 +1,12 @@
 package com.lsj.Trans.Params;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.http.client.methods.HttpUriRequest;
 
-public interface HttpParams {
-	public HttpUriRequest RequestCreateByUrl(String base) throws Exception;
-	public void put(String key, String value);
+public abstract class HttpParams {
+	protected final Map<String, String> params = new HashMap<>();
+	abstract public HttpUriRequest RequestCreateByUrl(String base) throws Exception;
+	abstract public void put(String key, String value);
 }

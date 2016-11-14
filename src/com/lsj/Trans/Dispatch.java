@@ -17,14 +17,14 @@ public abstract class Dispatch {
 	protected String base;
 	private CloseableHttpClient httpClient = HttpClients.createDefault();
 	
+	abstract public String Trans(String from, String targ, String query) throws Exception;
+	
 	protected String execute(HttpParams params) throws Exception{
 		
 		HttpUriRequest request = params.RequestCreateByUrl(base);		//根据不同的参数情况，创建不同的request(get或post)
 		CloseableHttpResponse response = httpClient.execute(request);
 		
-		String jsonString = InputStream2JsonString(response.getEntity().getContent());	//将输入流全部读取出来转换为标准json字符串，在该函数会关闭输入流
-		
-		return jsonString;
+		return InputStream2JsonString(response.getEntity().getContent());	//将输入流全部读取出来转换为标准json字符串，在该函数会关闭输入流
 	}
 	
 	private String InputStream2JsonString(InputStream is) throws Exception{

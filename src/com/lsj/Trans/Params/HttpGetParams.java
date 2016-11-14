@@ -1,14 +1,10 @@
 package com.lsj.Trans.Params;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.utils.URIBuilder;
 
-public class HttpGetParams implements HttpParams{
-	private final Map<String, String> params = new HashMap<>();
+public class HttpGetParams extends HttpParams{
 	
 	@Override
 	public void put(String key, String value){
@@ -24,7 +20,6 @@ public class HttpGetParams implements HttpParams{
 		}
 		
 		HttpGet request = new HttpGet(uri.toString());
-		
 		return request;
 	}
 }

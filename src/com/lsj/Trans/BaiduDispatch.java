@@ -4,12 +4,22 @@ import com.lsj.Trans.Params.HttpPostParams;
 import net.sf.json.JSONObject;
 
 public class BaiduDispatch extends Dispatch {
-	public BaiduDispatch(){
+	private static Dispatch unique = null;
+	
+	private BaiduDispatch(){
 		this.base = "http://fanyi.baidu.com/v2transapi";
 		langMap.put("en", "en");
 		langMap.put("zh", "zh");
 	}
 	
+	public static BaiduDispatch Instance(){
+		if(unique == null){
+			unique = new BaiduDispatch();
+		}
+		return (BaiduDispatch)unique;
+	}
+	
+	@Override
 	public String Trans(String from, String targ, String query) throws Exception{
 		
 		HttpPostParams params = new HttpPostParams();

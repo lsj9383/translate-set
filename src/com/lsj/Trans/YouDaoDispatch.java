@@ -5,13 +5,23 @@ import com.lsj.Trans.Params.HttpPostParams;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-public class YouDaoDispatch extends Dispatch {
-	public YouDaoDispatch(){
+public class YoudaoDispatch extends Dispatch {
+	private static Dispatch unique = null;
+	
+	private YoudaoDispatch(){
 		this.base = "http://fanyi.youdao.com/translate?smartresult=dict&smartresult=rule&smartresult=ugc&sessionFrom=https://www.baidu.com/link";
 		langMap.put("en", "EN");
 		langMap.put("zh", "ZH_CN");
 	}
 	
+	public static YoudaoDispatch Instance(){
+		if(unique == null){
+			unique = new YoudaoDispatch();
+		}
+		return (YoudaoDispatch)unique;
+	}
+	
+	@Override
 	public String Trans(String from, String targ, String query) throws Exception{
 		
 		HttpPostParams params = new HttpPostParams();

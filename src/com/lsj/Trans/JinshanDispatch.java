@@ -4,12 +4,21 @@ import com.lsj.Trans.Params.HttpPostParams;
 import net.sf.json.JSONObject;
 
 public class JinshanDispatch extends Dispatch {
-	public JinshanDispatch(){
+	private static Dispatch unique = null;
+	private JinshanDispatch(){
 		this.base = "http://fy.iciba.com/ajax.php?a=fy";
 		langMap.put("en", "en");
 		langMap.put("zh", "zh");
 	}
 	
+	public static JinshanDispatch Instance(){
+		if(unique == null){
+			unique = new JinshanDispatch();
+		}
+		return (JinshanDispatch)unique;
+	}
+	
+	@Override
 	public String Trans(String from, String targ, String query) throws Exception{
 		
 		HttpPostParams params = new HttpPostParams();
