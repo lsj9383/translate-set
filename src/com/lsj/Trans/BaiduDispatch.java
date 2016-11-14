@@ -6,14 +6,16 @@ import net.sf.json.JSONObject;
 public class BaiduDispatch extends Dispatch {
 	public BaiduDispatch(){
 		this.base = "http://fanyi.baidu.com/v2transapi";
+		langMap.put("en", "en");
+		langMap.put("zh", "zh");
 	}
 	
 	public String Trans(String from, String targ, String query) throws Exception{
 		
 		HttpPostParams params = new HttpPostParams();
 		
-		params.put("from", "en");
-		params.put("to", "zh");
+		params.put("from", langMap.get(from));
+		params.put("to", langMap.get(targ));
 		params.put("query", query);
 		params.put("transtype", "translang");
 		params.put("simple_means_flag", "3");

@@ -1,6 +1,5 @@
 package com.lsj.Trans.Params;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 

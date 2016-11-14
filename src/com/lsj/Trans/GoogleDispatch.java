@@ -13,14 +13,16 @@ public class GoogleDispatch extends Dispatch {
 	
 	public GoogleDispatch(){
 		this.base = "http://translate.google.cn/translate_a/single";
+		langMap.put("en", "en");
+		langMap.put("zh", "zh-CN");
 	}
 	
 	public String Trans(String from, String targ, String query) throws Exception{
 		HttpGetParams params = new HttpGetParams();
 		
 		params.put("client", "t");
-		params.put("sl", "en");
-		params.put("tl", "zh-CN");
+		params.put("sl", langMap.get(from));
+		params.put("tl", langMap.get(targ));
 		params.put("hl", "zh-CN");
 		params.put("dt", "at");
 		params.put("dt", "bd");

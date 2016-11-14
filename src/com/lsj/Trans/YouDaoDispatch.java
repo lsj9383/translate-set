@@ -8,13 +8,15 @@ import net.sf.json.JSONObject;
 public class YouDaoDispatch extends Dispatch {
 	public YouDaoDispatch(){
 		this.base = "http://fanyi.youdao.com/translate?smartresult=dict&smartresult=rule&smartresult=ugc&sessionFrom=https://www.baidu.com/link";
+		langMap.put("en", "EN");
+		langMap.put("zh", "ZH_CN");
 	}
 	
 	public String Trans(String from, String targ, String query) throws Exception{
 		
 		HttpPostParams params = new HttpPostParams();
 		
-		params.put("type", "EN2ZH_CN");
+		params.put("type", langMap.get(from)+"2"+langMap.get(targ));
 		params.put("i", query);
 		params.put("doctype", "json");
 		params.put("xmlVersion", "1.8");
