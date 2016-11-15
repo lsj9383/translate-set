@@ -4,19 +4,17 @@ import com.lsj.Trans.Params.HttpPostParams;
 import net.sf.json.JSONObject;
 
 public class BaiduDispatch extends Dispatch {
-	private static Dispatch unique = null;
 	
-	private BaiduDispatch(){
+	static{
+		String ClassName = "com.lsj.Trans.BaiduDispatch";
+		ClassMap.put("baidu", ClassName);
+		ClassMap.put("Baidu", ClassName);
+	}
+	
+	public BaiduDispatch(){
 		this.base = "http://fanyi.baidu.com/v2transapi";
 		langMap.put("en", "en");
 		langMap.put("zh", "zh");
-	}
-	
-	public static BaiduDispatch Instance(){
-		if(unique == null){
-			unique = new BaiduDispatch();
-		}
-		return (BaiduDispatch)unique;
 	}
 	
 	@Override

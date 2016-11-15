@@ -1,21 +1,17 @@
 #TranslateSet
-一种小型的翻译集合工具。[这里](https://github.com/lsj9383/TranslateSet/blob/master/src/Demo/Main.java)是一个简单示例。考虑引入反射，进一步降低耦合。
+一种小型的翻译集合工具。[这里](https://github.com/lsj9383/TranslateSet/blob/master/src/Demo/Main.java)是一个简单示例。
 
-#开始
-在创建工程是需要进行包依赖，这些包依赖都在lib文件夹下。更多的请看**附录：包依赖**
+#一、开始
+在创建工程是需要进行jar依赖，需要的jar都在仓库的lib文件夹下。详细的请看**附录：包依赖**
 ###1.引入包
 ```java
 import com.lsj.Trans.Dispatch;
-import com.lsj.Trans.BaiduDispatch;
-import com.lsj.Trans.GoogleDispatch;
-import com.lsj.Trans.JinshanDispatch;
-import com.lsj.Trans.YoudaoDispatch;
 ```
 
 ###2.获得翻译实体
-有各种不同的翻译网站，每个网站对应一个类，并且全是单例模式。
+有各种不同的翻译网站，每个网站对应一个类，并且每个网站类都是采用的单例模式。单例由Dispatch管理。
 ```java
-Dispatch dispatch = JinshanDispatch.Instance();
+Dispatch dispatch = Dispatch.Instance("google");
 ```
 
 ###3.翻译
@@ -24,7 +20,35 @@ String zhResult = dispatch.Trans("en", "zh", "Learn Git and GitHub without any c
 String enResult = dispatch.Trans("zh", "en", "希拉里败选后大哭");							//中文翻译为英文
 ```
 
-#附录：包依赖:
+#二、API
+该工具提供的API相当简单:<br>
+1.获得翻译实体
+```JAVA
+dispatch = Dispatch.Instance("google");
+dispatch = Dispatch.Instance("Google");
+
+dispatch = Dispatch.Instance("baidu");
+dispatch = Dispatch.Instance("Baidu");
+
+dispatch = Dispatch.Instance("youdao");
+dispatch = Dispatch.Instance("Youdao");
+
+dispatch = Dispatch.Instance("jinshan");
+dispatch = Dispatch.Instance("Jinshan");
+```
+
+2.翻译
+```JAVA
+/*
+ *langOri 和 langTag 用于指定中英文
+ *中文 "zh"
+ *英文 "en"
+ *
+ */
+dispatch.Trans(langOri, langTag, string);
+```
+
+#附录：包依赖
 TranslateSet，依赖了两个第三方模块:HttpClient和Json。
 * HttpClient jar
 	* commons-codec-1.9.jar

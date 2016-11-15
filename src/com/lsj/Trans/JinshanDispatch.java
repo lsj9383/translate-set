@@ -4,18 +4,17 @@ import com.lsj.Trans.Params.HttpPostParams;
 import net.sf.json.JSONObject;
 
 public class JinshanDispatch extends Dispatch {
-	private static Dispatch unique = null;
-	private JinshanDispatch(){
+	
+	static{
+		String ClassName = "com.lsj.Trans.JinshanDispatch";
+		ClassMap.put("jinshan", ClassName);
+		ClassMap.put("Jinshan", ClassName);
+	}
+	
+	public JinshanDispatch(){
 		this.base = "http://fy.iciba.com/ajax.php?a=fy";
 		langMap.put("en", "en");
 		langMap.put("zh", "zh");
-	}
-	
-	public static JinshanDispatch Instance(){
-		if(unique == null){
-			unique = new JinshanDispatch();
-		}
-		return (JinshanDispatch)unique;
 	}
 	
 	@Override

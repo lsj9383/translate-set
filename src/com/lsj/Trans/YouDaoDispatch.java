@@ -6,19 +6,16 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 public class YoudaoDispatch extends Dispatch {
-	private static Dispatch unique = null;
+	static{
+		String ClassName = "com.lsj.Trans.YoudaoDispatch";
+		ClassMap.put("youdao", ClassName);
+		ClassMap.put("Youdao", ClassName);
+	}
 	
-	private YoudaoDispatch(){
+	public YoudaoDispatch(){
 		this.base = "http://fanyi.youdao.com/translate?smartresult=dict&smartresult=rule&smartresult=ugc&sessionFrom=https://www.baidu.com/link";
 		langMap.put("en", "EN");
 		langMap.put("zh", "ZH_CN");
-	}
-	
-	public static YoudaoDispatch Instance(){
-		if(unique == null){
-			unique = new YoudaoDispatch();
-		}
-		return (YoudaoDispatch)unique;
 	}
 	
 	@Override

@@ -9,20 +9,18 @@ import com.lsj.Trans.Params.HttpGetParams;
 import net.sf.json.JSONArray;
 
 public class GoogleDispatch extends Dispatch {
-	private static Dispatch unique = null;
 	private static ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
 	
-	private GoogleDispatch(){
+	static{
+		String ClassName = "com.lsj.Trans.GoogleDispatch";
+		ClassMap.put("google", ClassName);
+		ClassMap.put("Google", ClassName);
+	}
+	
+	public GoogleDispatch(){
 		this.base = "http://translate.google.cn/translate_a/single";
 		langMap.put("en", "en");
 		langMap.put("zh", "zh-CN");
-	}
-	
-	public static GoogleDispatch Instance(){
-		if(unique == null){
-			unique = new GoogleDispatch();
-		}
-		return (GoogleDispatch)unique;
 	}
 	
 	@Override

@@ -13,11 +13,33 @@ import org.apache.http.impl.client.HttpClients;
 import com.lsj.Trans.Params.HttpParams;
 
 public abstract class Dispatch {
-	protected Map<String, String> langMap = new HashMap<>();
-	protected String base;
+	protected static Map<String, String> ClassMap = new HashMap<>();			//类名映射，由子类完成
+	protected Map<String, String> langMap = new HashMap<>();					//语言映射，由子类完成
+	protected String base;														//分发器地址
 	private CloseableHttpClient httpClient = HttpClients.createDefault();
-	
+	private static Map<String, Dispatch> Instances = new HashMap<>();			//实例映射
+
 	abstract public String Trans(String from, String targ, String query) throws Exception;
+	
+	static public Dispatch Instance(String name) throws Exception{
+		if(ClassMap.size() == 0){
+			Class.forName("com.lsj.Trans.BaiduDispatch");
+			Class.forName("com.lsj.Trans.GoogleDispatch");
+			Class.forName("com.lsj.Trans.JinshanDispatch");
+			Class.forName("com.lsj.Trans.YoudaoDispatch");
+		}
+		
+		String ClassName = ClassMap.get(name);
+		if(ClassName == null){	//不存在对应的类, 无法实例化.
+			return null;
+		}
+		
+		if( Instances.get(ClassName) == null){
+			Dispatch dispatch = (Dispatch)Class.forName(ClassName).newInstance();
+			Instances.put(ClassName, dispatch);
+		}
+		return Instances.get(ClassName);
+	}
 	
 	protected String execute(HttpParams params) throws Exception{
 		
