@@ -14,6 +14,7 @@ public class Main {
 		System.out.println("谷歌 : " + Dispatch.Instance("google").Trans("en", "zh", origin));
 		System.out.println("\n");
 		
+		
 		origin = "这个巡展，大家想去的先注册，临近当地巡展时候，会有注册确认邮件发给大家，届时可以看到详细的活动地址";
 		System.out.println("金山 : " + Dispatch.Instance("jinshan").Trans("zh", "en", origin));
 		System.out.println("有道 : " + Dispatch.Instance("youdao").Trans("zh", "en", origin));
