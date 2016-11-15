@@ -22,13 +22,13 @@ public abstract class Dispatch {
 	abstract public String Trans(String from, String targ, String query) throws Exception;
 	
 	static public Dispatch Instance(String name) throws Exception{
-		if(ClassMap.size() == 0){
+		if(ClassMap.size() == 0){	//加载类
 			Class.forName("com.lsj.Trans.BaiduDispatch");
 			Class.forName("com.lsj.Trans.GoogleDispatch");
 			Class.forName("com.lsj.Trans.JinshanDispatch");
 			Class.forName("com.lsj.Trans.YoudaoDispatch");
 		}
-		
+		//取出类
 		String ClassName = ClassMap.get(name);
 		if(ClassName == null){	//不存在对应的类, 无法实例化.
 			return null;

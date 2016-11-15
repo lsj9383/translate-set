@@ -1,9 +1,15 @@
 #TranslateSet
 一种小型的翻译集合工具。[这里](https://github.com/lsj9383/TranslateSet/blob/master/src/Demo/Main.java)是一个简单示例。
+目前支持的翻译来源:
+* Google翻译
+* 百度翻译
+* 有道翻译
+* 金山翻译(金山翻译的来源是百度)
 
 #一、开始
 在创建工程是需要进行jar依赖，需要的jar都在仓库的lib文件夹下。详细的请看**附录：包依赖**
 ###1.引入包
+使用仓库目录下的until_trans.jar，置于classpath下，并在代码中使用如下方式进行import
 ```java
 import com.lsj.Trans.Dispatch;
 ```
@@ -22,7 +28,7 @@ String enResult = dispatch.Trans("zh", "en", "希拉里败选后大哭");							
 
 #二、API
 该工具提供的API相当简单:<br>
-1.获得翻译实体
+###1.获得翻译实体
 ```JAVA
 dispatch = Dispatch.Instance("google");
 dispatch = Dispatch.Instance("Google");
@@ -37,7 +43,7 @@ dispatch = Dispatch.Instance("jinshan");
 dispatch = Dispatch.Instance("Jinshan");
 ```
 
-2.翻译
+###2.翻译
 ```JAVA
 /*
  *langOri 和 langTag 用于指定中英文
