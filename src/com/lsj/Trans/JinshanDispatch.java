@@ -1,12 +1,12 @@
-package com.lsj.Trans;
+package com.lsj.trans;
 
-import com.lsj.Trans.Params.HttpPostParams;
+import com.lsj.trans.params.HttpPostParams;
 import net.sf.json.JSONObject;
 
 public class JinshanDispatch extends Dispatch {
 	
 	static{
-		String ClassName = "com.lsj.Trans.JinshanDispatch";
+		String ClassName = JinshanDispatch.class.getName();
 		ClassMap.put("jinshan", ClassName);
 		ClassMap.put("Jinshan", ClassName);
 	}
@@ -19,18 +19,18 @@ public class JinshanDispatch extends Dispatch {
 	
 	@Override
 	public String Trans(String from, String targ, String query) throws Exception{
-		
-		HttpPostParams params = new HttpPostParams();
+		params = new HttpPostParams();
 		
 		params.put("f", langMap.get(from));
 		params.put("t", langMap.get(targ));
 		params.put("w", query);
 		
-		String jsonString = execute(params);
+		String jsonString = execute();
 		return ParseJsonString(jsonString);
 	}
 	
-	private String ParseJsonString(String jsonString){
+	@Override
+	protected String ParseJsonString(String jsonString){
 		JSONObject jsonObject = JSONObject.fromObject(jsonString);
 		return jsonObject.getJSONObject("content").getString("out");
 	}

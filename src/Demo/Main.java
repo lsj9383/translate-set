@@ -1,6 +1,6 @@
 package Demo;
 
-import com.lsj.Trans.Dispatch;
+import com.lsj.trans.Dispatch;
 
 public class Main {
 

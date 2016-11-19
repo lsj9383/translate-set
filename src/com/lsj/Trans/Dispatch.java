@@ -1,4 +1,4 @@
-package com.lsj.Trans;
+package com.lsj.trans;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -10,9 +10,10 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
-import com.lsj.Trans.Params.HttpParams;
+import com.lsj.trans.params.HttpParams;
 
 public abstract class Dispatch {
+	protected HttpParams params;
 	protected static Map<String, String> ClassMap = new HashMap<>();			//类名映射，由子类完成
 	protected Map<String, String> langMap = new HashMap<>();					//语言映射，由子类完成
 	protected String base;														//分发器地址
@@ -20,13 +21,14 @@ public abstract class Dispatch {
 	private static Map<String, Dispatch> Instances = new HashMap<>();			//实例映射
 
 	abstract public String Trans(String from, String targ, String query) throws Exception;
+	abstract protected String ParseJsonString(String jsonString);
 	
 	static public Dispatch Instance(String name) throws Exception{
 		if(ClassMap.size() == 0){	//加载类
-			Class.forName("com.lsj.Trans.BaiduDispatch");
-			Class.forName("com.lsj.Trans.GoogleDispatch");
-			Class.forName("com.lsj.Trans.JinshanDispatch");
-			Class.forName("com.lsj.Trans.YoudaoDispatch");
+			Class.forName("com.lsj.trans.BaiduDispatch");
+			Class.forName("com.lsj.trans.GoogleDispatch");
+			Class.forName("com.lsj.trans.JinshanDispatch");
+			Class.forName("com.lsj.trans.YoudaoDispatch");
 		}
 		//取出类
 		String ClassName = ClassMap.get(name);
@@ -41,7 +43,7 @@ public abstract class Dispatch {
 		return Instances.get(ClassName);
 	}
 	
-	protected String execute(HttpParams params) throws Exception{
+	protected String execute() throws Exception{
 		
 		HttpUriRequest request = params.RequestCreateByUrl(base);		//根据不同的参数情况，创建不同的request(get或post)
 		CloseableHttpResponse response = httpClient.execute(request);

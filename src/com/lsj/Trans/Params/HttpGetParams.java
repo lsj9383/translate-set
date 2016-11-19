@@ -1,4 +1,4 @@
-package com.lsj.Trans.Params;
+package com.lsj.trans.params;
 
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;

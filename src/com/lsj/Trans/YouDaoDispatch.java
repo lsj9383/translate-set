@@ -1,13 +1,13 @@
-package com.lsj.Trans;
+package com.lsj.trans;
 
-import com.lsj.Trans.Params.HttpPostParams;
+import com.lsj.trans.params.HttpPostParams;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 public class YoudaoDispatch extends Dispatch {
 	static{
-		String ClassName = "com.lsj.Trans.YoudaoDispatch";
+		String ClassName = YoudaoDispatch.class.getName();
 		ClassMap.put("youdao", ClassName);
 		ClassMap.put("Youdao", ClassName);
 	}
@@ -20,8 +20,7 @@ public class YoudaoDispatch extends Dispatch {
 	
 	@Override
 	public String Trans(String from, String targ, String query) throws Exception{
-		
-		HttpPostParams params = new HttpPostParams();
+		params = new HttpPostParams();
 		
 		params.put("type", langMap.get(from)+"2"+langMap.get(targ));
 		params.put("i", query);
@@ -32,11 +31,12 @@ public class YoudaoDispatch extends Dispatch {
 		params.put("action", "FY_BY_CLICKBUTTON");
 		params.put("typoResult", "true");
 		
-		String jsonString = execute(params);
+		String jsonString = execute();
 		return ParseJsonString(jsonString);
 	}
 	
-	private String ParseJsonString(String jsonString){
+	@Override
+	protected String ParseJsonString(String jsonString){
 		JSONObject jsonObject = JSONObject.fromObject(jsonString);
 		JSONArray parts = jsonObject.getJSONArray("translateResult").getJSONArray(0);
 		String result = new String();

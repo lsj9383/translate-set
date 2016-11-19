@@ -1,10 +1,10 @@
-package com.lsj.Trans;
+package com.lsj.trans;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
-import com.lsj.Trans.Params.HttpGetParams;
+import com.lsj.trans.params.HttpGetParams;
 
 import net.sf.json.JSONArray;
 
@@ -12,7 +12,7 @@ public class GoogleDispatch extends Dispatch {
 	private static ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
 	
 	static{
-		String ClassName = "com.lsj.Trans.GoogleDispatch";
+		String ClassName = GoogleDispatch.class.getName();
 		ClassMap.put("google", ClassName);
 		ClassMap.put("Google", ClassName);
 	}
@@ -25,7 +25,7 @@ public class GoogleDispatch extends Dispatch {
 	
 	@Override
 	public String Trans(String from, String targ, String query) throws Exception{
-		HttpGetParams params = new HttpGetParams();
+		params = new HttpGetParams();
 		
 		params.put("client", "t");
 		params.put("sl", langMap.get(from));
@@ -52,12 +52,13 @@ public class GoogleDispatch extends Dispatch {
 		params.put("tk", tk(query));
 		params.put("q", query);
 		
-		String jsonString = execute(params);
+		String jsonString = execute();
 		
 		return ParseJsonString(jsonString);
 	}
 	
-	private String ParseJsonString(String jsonString){
+	@Override
+	protected String ParseJsonString(String jsonString){
 		JSONArray jsonArray = JSONArray.fromObject(jsonString);
 		return jsonArray.getJSONArray(0).getJSONArray(0).getString(0);
 	}
