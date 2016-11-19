@@ -7,6 +7,7 @@ import javax.script.ScriptEngineManager;
 import com.lsj.trans.params.HttpGetParams;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 public class GoogleDispatch extends Dispatch {
 	private static ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
@@ -60,7 +61,14 @@ public class GoogleDispatch extends Dispatch {
 	@Override
 	protected String ParseJsonString(String jsonString){
 		JSONArray jsonArray = JSONArray.fromObject(jsonString);
-		return jsonArray.getJSONArray(0).getJSONArray(0).getString(0);
+		JSONArray parts = jsonArray.getJSONArray(0);
+		String result = new String();
+		
+		for(int i=0; i<parts.size(); i++){
+			result += parts.getJSONArray(i).getString(0);
+		}
+		
+		return result;
 	}
 	
 	private String tk(String val) throws Exception{
