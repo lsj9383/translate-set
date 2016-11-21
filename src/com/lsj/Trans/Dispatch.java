@@ -19,18 +19,30 @@ public abstract class Dispatch {
 	protected String base;														//分发器地址
 	private CloseableHttpClient httpClient = HttpClients.createDefault();
 	private static Map<String, Dispatch> Instances = new HashMap<>();			//实例映射
-
+	private static volatile boolean  init = false;
+	private static String[] dispatchClassNames = {	"com.lsj.trans.BaiduDispatch",
+													"com.lsj.trans.GoogleDispatch",
+													"com.lsj.trans.JinshanDispatch",
+													"com.lsj.trans.YoudaoDispatch"};
 	abstract public String Trans(String from, String targ, String query) throws Exception;
 	abstract protected String ParseJsonString(String jsonString);
 	
-	static public Dispatch Instance(String name) throws Exception{
+	static private void Init() throws Exception{
 		if(classMap.size() == 0){	//加载类
-			Class.forName("com.lsj.trans.BaiduDispatch");
-			Class.forName("com.lsj.trans.GoogleDispatch");
-			Class.forName("com.lsj.trans.JinshanDispatch");
-			Class.forName("com.lsj.trans.YoudaoDispatch");
+			synchronized (Dispatch.class) {
+				if(classMap.size() == 0){
+					for(String dispatchName : dispatchClassNames){
+						Class.forName(dispatchName);
+					}
+					init = true;
+				}
+			}
 		}
-		//取出类
+		while(init == false);	//确保初始化
+	}
+	
+	static public Dispatch Instance(String name) throws Exception{
+		Init();
 		String ClassName = classMap.get(name);
 		if(ClassName == null){	//不存在对应的类, 无法实例化.
 			return null;
@@ -43,7 +55,7 @@ public abstract class Dispatch {
 		return Instances.get(ClassName);
 	}
 	
-	protected String execute() throws Exception{
+	protected synchronized String execute() throws Exception{
 		
 		HttpUriRequest request = params.RequestCreateByUrl(base);		//根据不同的参数情况，创建不同的request(get或post)
 		CloseableHttpResponse response = httpClient.execute(request);

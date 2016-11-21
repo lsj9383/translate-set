@@ -3,7 +3,6 @@ package Demo;
 import com.lsj.trans.Dispatch;
 
 public class Main {
-
 	public static void main(String[] args) throws Exception {
 		
 		String origin = "Xamarin.Forms has several layouts and features for organizing content on screen.\n Each layout control is described below, as well as details on how to handle screen orientation changes:";
