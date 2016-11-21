@@ -7,8 +7,8 @@ public class JinshanDispatch extends Dispatch {
 	
 	static{
 		String ClassName = JinshanDispatch.class.getName();
-		ClassMap.put("jinshan", ClassName);
-		ClassMap.put("Jinshan", ClassName);
+		classMap.put("jinshan", ClassName);
+		classMap.put("Jinshan", ClassName);
 	}
 	
 	public JinshanDispatch(){
@@ -19,11 +19,10 @@ public class JinshanDispatch extends Dispatch {
 	
 	@Override
 	public String Trans(String from, String targ, String query) throws Exception{
-		params = new HttpPostParams();
-		
-		params.put("f", langMap.get(from));
-		params.put("t", langMap.get(targ));
-		params.put("w", query);
+		params = new HttpPostParams()
+				.put("f", langMap.get(from))
+				.put("t", langMap.get(targ))
+				.put("w", query);
 		
 		String jsonString = execute();
 		return ParseJsonString(jsonString);

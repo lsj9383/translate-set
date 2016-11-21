@@ -14,7 +14,7 @@ import com.lsj.trans.params.HttpParams;
 
 public abstract class Dispatch {
 	protected HttpParams params;
-	protected static Map<String, String> ClassMap = new HashMap<>();			//类名映射，由子类完成
+	protected static Map<String, String> classMap = new HashMap<>();			//类名映射，由子类完成
 	protected Map<String, String> langMap = new HashMap<>();					//语言映射，由子类完成
 	protected String base;														//分发器地址
 	private CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -24,14 +24,14 @@ public abstract class Dispatch {
 	abstract protected String ParseJsonString(String jsonString);
 	
 	static public Dispatch Instance(String name) throws Exception{
-		if(ClassMap.size() == 0){	//加载类
+		if(classMap.size() == 0){	//加载类
 			Class.forName("com.lsj.trans.BaiduDispatch");
 			Class.forName("com.lsj.trans.GoogleDispatch");
 			Class.forName("com.lsj.trans.JinshanDispatch");
 			Class.forName("com.lsj.trans.YoudaoDispatch");
 		}
 		//取出类
-		String ClassName = ClassMap.get(name);
+		String ClassName = classMap.get(name);
 		if(ClassName == null){	//不存在对应的类, 无法实例化.
 			return null;
 		}

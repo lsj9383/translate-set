@@ -7,15 +7,14 @@ import javax.script.ScriptEngineManager;
 import com.lsj.trans.params.HttpGetParams;
 
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
 public class GoogleDispatch extends Dispatch {
 	private static ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
 	
 	static{
 		String ClassName = GoogleDispatch.class.getName();
-		ClassMap.put("google", ClassName);
-		ClassMap.put("Google", ClassName);
+		classMap.put("google", ClassName);
+		classMap.put("Google", ClassName);
 	}
 	
 	public GoogleDispatch(){
@@ -26,32 +25,32 @@ public class GoogleDispatch extends Dispatch {
 	
 	@Override
 	public String Trans(String from, String targ, String query) throws Exception{
-		params = new HttpGetParams();
 		
-		params.put("client", "t");
-		params.put("sl", langMap.get(from));
-		params.put("tl", langMap.get(targ));
-		params.put("hl", "zh-CN");
-		params.put("dt", "at");
-		params.put("dt", "bd");
-		params.put("dt", "ex");
-		params.put("dt", "ld");
-		params.put("dt", "md");
-		params.put("dt", "qca");
-		params.put("dt", "rw");
-		params.put("dt", "rm");
-		params.put("dt", "ss");
-		params.put("dt", "t");
-		
-		params.put("ie", "UTF-8");
-		params.put("oe", "UTF-8");
-		params.put("source", "btn");
-		params.put("srcrom", "1");
-		params.put("ssel", "0");
-		params.put("tsel", "0");
-		params.put("kc", "11");
-		params.put("tk", tk(query));
-		params.put("q", query);
+		params = new HttpGetParams()
+				.put("client", "t")
+				.put("sl", langMap.get(from))
+				.put("tl", langMap.get(targ))
+				.put("hl", "zh-CN")
+				.put("dt", "at")
+				.put("dt", "bd")
+				.put("dt", "ex")
+				.put("dt", "ld")
+				.put("dt", "md")
+				.put("dt", "qca")
+				.put("dt", "rw")
+				.put("dt", "rm")
+				.put("dt", "ss")
+				.put("dt", "t")
+				
+				.put("ie", "UTF-8")
+				.put("oe", "UTF-8")
+				.put("source", "btn")
+				.put("srcrom", "1")
+				.put("ssel", "0")
+				.put("tsel", "0")
+				.put("kc", "11")
+				.put("tk", tk(query))
+				.put("q", query);
 		
 		String jsonString = execute();
 		
@@ -61,14 +60,14 @@ public class GoogleDispatch extends Dispatch {
 	@Override
 	protected String ParseJsonString(String jsonString){
 		JSONArray jsonArray = JSONArray.fromObject(jsonString);
-		JSONArray parts = jsonArray.getJSONArray(0);
-		String result = new String();
+		JSONArray segments = jsonArray.getJSONArray(0);
+		StringBuilder result = new StringBuilder();
 		
-		for(int i=0; i<parts.size(); i++){
-			result += parts.getJSONArray(i).getString(0);
+		for(int i=0; i<segments.size(); i++){
+			result.append(segments.getJSONArray(i).getString(0));
 		}
 		
-		return result;
+		return new String(result);
 	}
 	
 	private String tk(String val) throws Exception{

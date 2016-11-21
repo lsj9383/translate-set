@@ -8,5 +8,5 @@ import org.apache.http.client.methods.HttpUriRequest;
 public abstract class HttpParams {
 	protected final Map<String, String> params = new HashMap<>();
 	abstract public HttpUriRequest RequestCreateByUrl(String base) throws Exception;
-	abstract public void put(String key, String value);
+	abstract public HttpParams put(String key, String value);
 }

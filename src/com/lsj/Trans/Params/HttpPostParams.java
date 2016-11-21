@@ -11,8 +11,9 @@ import org.apache.http.message.BasicNameValuePair;
 
 public class HttpPostParams extends HttpParams{
 	@Override
-	public void put(String key, String value){
+	public HttpParams put(String key, String value){
 		params.put(key, value);
+		return this;
 	}
 
 	@Override
@@ -24,7 +25,7 @@ public class HttpPostParams extends HttpParams{
 		}
 		HttpPost httpPost = new HttpPost(base);
 		httpPost.setEntity(new UrlEncodedFormEntity(formparams, "UTF-8"));
-		httpPost.setHeader("Content-Type", "application/x-www-form-urlencoded");
+		httpPost.setHeader("Content-Type", "application/x-www-form-urlencoded");		//内容为post
 		return httpPost;
 	}
 }

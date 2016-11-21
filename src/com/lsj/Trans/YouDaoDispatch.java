@@ -8,8 +8,8 @@ import net.sf.json.JSONObject;
 public class YoudaoDispatch extends Dispatch {
 	static{
 		String ClassName = YoudaoDispatch.class.getName();
-		ClassMap.put("youdao", ClassName);
-		ClassMap.put("Youdao", ClassName);
+		classMap.put("youdao", ClassName);
+		classMap.put("Youdao", ClassName);
 	}
 	
 	public YoudaoDispatch(){
@@ -20,32 +20,32 @@ public class YoudaoDispatch extends Dispatch {
 	
 	@Override
 	public String Trans(String from, String targ, String query) throws Exception{
-		params = new HttpPostParams();
-		
-		params.put("type", langMap.get(from)+"2"+langMap.get(targ));
-		params.put("i", query);
-		params.put("doctype", "json");
-		params.put("xmlVersion", "1.8");
-		params.put("keyfrom", "fanyi.web");
-		params.put("ue", "UTF-8");
-		params.put("action", "FY_BY_CLICKBUTTON");
-		params.put("typoResult", "true");
-		
-		String jsonString = execute();
-		return ParseJsonString(jsonString);
+		params = new HttpPostParams()
+				.put("type", langMap.get(from)+"2"+langMap.get(targ))
+				.put("i", query)
+				.put("doctype", "json")
+				.put("xmlVersion", "1.8")
+				.put("keyfrom", "fanyi.web")
+				.put("ue", "UTF-8")
+				.put("action", "FY_BY_CLICKBUTTON")
+				.put("typoResult", "true");
+		return ParseJsonString(execute());
 	}
 	
 	@Override
 	protected String ParseJsonString(String jsonString){
+		StringBuilder result = new StringBuilder();
 		JSONObject jsonObject = JSONObject.fromObject(jsonString);
-		JSONArray parts = jsonObject.getJSONArray("translateResult").getJSONArray(0);
-		String result = new String();
+		JSONArray segments = jsonObject.getJSONArray("translateResult");
 		
-		for(int i=0; i<parts.size(); i++){
-			JSONObject item = parts.getJSONObject(i);
-			result += item.getString("tgt");
+		for(int i=0; i<segments.size(); i++){
+			result.append(i==0 ? "" : "\r\n");
+			JSONArray parts = jsonObject.getJSONArray("translateResult").getJSONArray(i);
+			for(int j=0; j<parts.size(); j++){
+				result.append(parts.getJSONObject(j).getString("tgt"));
+			}
 		}
 		
-		return result;
+		return new String(result);
 	}
 }
