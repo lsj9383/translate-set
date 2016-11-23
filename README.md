@@ -52,6 +52,10 @@ dispatch = Dispatch.Instance("jinshan");
 dispatch = Dispatch.Instance("Jinshan");
 ```
 
+#三、扩展
+只要用户知道翻译所需要发送的http请求的详细信息以及返回数据的解析方式，那么用户就可以通过继承Dispatch类和使用HttpParams类来完成自己的翻译实体类。
+
+
 ###2.翻译
 ```JAVA
 /*
