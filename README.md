@@ -9,17 +9,27 @@
 #一、开始
 需要的jar包都在仓库根目录的jar文件夹下。请注意，lib文件夹是编译工具工程所依赖的包，详细的请看**附录：包依赖**
 ###1.引入包
+仅仅需要一个翻译转发的类，需要注意的是，这是一个抽象类不可实例化。
 ```java
 import com.lsj.Trans.Dispatch;
 ```
 
-###2.获得翻译实体
-有各种不同的翻译网站，每个网站对应一个类，并且每个网站类都是采用的单例模式。单例由Dispatch管理。
+###2.加载需要的类
+在实际进行翻译之前，需要加载用到的转发类。
+```java
+Class.forName("com.lsj.trans.BaiduDispatch");		//加载百度的翻译转发类
+Class.forName("com.lsj.trans.GoogleDispatch");		//加载Google的翻译转发类
+Class.forName("com.lsj.trans.JinshanDispatch");		//加载金山的翻译转发类
+Class.forName("com.lsj.trans.YoudaoDispatch");		//加载有道的翻译转发类
+```
+
+###3.获得翻译实体
+有各种不同的翻译网站，每个网站对应一个类，并且每个网站类都是采用的单例模式。单例由Dispatch管理。当然获取翻译实体必须要事先**加载**，若没有加载则无法得到翻译实体(返回`null`)。
 ```java
 Dispatch dispatch = Dispatch.Instance("google");
 ```
 
-###3.翻译
+###4.翻译
 ```java
 String zhResult = dispatch.Trans("en", "zh", "Learn Git and GitHub without any code!");		//英文翻译为中文
 String enResult = dispatch.Trans("zh", "en", "希拉里败选后大哭");							//中文翻译为英文
@@ -53,9 +63,8 @@ dispatch = Dispatch.Instance("Jinshan");
 dispatch.Trans(langOri, langTag, string);
 ```
 
-#附录：包依赖
-TranslateSet，依赖了两个第三方模块:HttpClient和Json。
-* HttpClient jar
+#附录：jar清单
+* HttpClient jar(第三方jar)
 	* commons-codec-1.9.jar
 	* commons-logging-1.2.jar
 	* fluent-hc-4.5.2.jar
@@ -66,12 +75,13 @@ TranslateSet，依赖了两个第三方模块:HttpClient和Json。
 	* httpmime-4.5.2.jar
 	* jna-4.1.0.jar
 	* jna-platform-4.1.0.jar
-* JSON jar
+* JSON jar(第三方jar)
 	* commons-beanutils-1.8.0.jar
 	* commons-collectioins-3.2.1.jar
 	* commons-lang-2.5.jar
 	* commons-logging-1.1.1.jar
 	* ezmorph-1.0.6.jar
 	* json-lib-2.5.jdk15.jdr
+* until_trans.jar(核心jar)
 
 注意:HttpClient jar的版本建议使用最新，JSON jar应该严格按照上述版本进行配置。
