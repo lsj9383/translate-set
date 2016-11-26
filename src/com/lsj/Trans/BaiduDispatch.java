@@ -7,9 +7,9 @@ import net.sf.json.JSONObject;
 public class BaiduDispatch extends Dispatch {
 	
 	static{
-		String ClassName = BaiduDispatch.class.getName();
-		classMap.put("baidu", ClassName);
-		classMap.put("Baidu", ClassName);
+		BaiduDispatch dispatch = new BaiduDispatch();
+		classMap.put("baidu", dispatch);
+		classMap.put("Baidu", dispatch);
 	}
 	
 	public BaiduDispatch(){

@@ -6,9 +6,9 @@ import net.sf.json.JSONObject;
 public class JinshanDispatch extends Dispatch {
 	
 	static{
-		String ClassName = JinshanDispatch.class.getName();
-		classMap.put("jinshan", ClassName);
-		classMap.put("Jinshan", ClassName);
+		JinshanDispatch dispatch = new JinshanDispatch();
+		classMap.put("jinshan", dispatch);
+		classMap.put("Jinshan", dispatch);
 	}
 	
 	public JinshanDispatch(){

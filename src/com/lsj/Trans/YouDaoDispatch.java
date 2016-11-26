@@ -7,9 +7,9 @@ import net.sf.json.JSONObject;
 
 public class YoudaoDispatch extends Dispatch {
 	static{
-		String ClassName = YoudaoDispatch.class.getName();
-		classMap.put("youdao", ClassName);
-		classMap.put("Youdao", ClassName);
+		YoudaoDispatch dispatch = new YoudaoDispatch();
+		classMap.put("youdao", dispatch);
+		classMap.put("Youdao", dispatch);
 	}
 	
 	public YoudaoDispatch(){

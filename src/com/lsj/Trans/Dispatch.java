@@ -14,33 +14,26 @@ import com.lsj.trans.params.HttpParams;
 
 public abstract class Dispatch {
 	protected HttpParams params;
-	protected static Map<String, String> classMap = new HashMap<>();			//类名映射，由子类完成
+	protected static Map<String, Dispatch> classMap = new HashMap<>();			//类名映射，由子类完成
 	protected Map<String, String> langMap = new HashMap<>();					//语言映射，由子类完成
 	protected String base;														//分发器地址
 	private CloseableHttpClient httpClient = HttpClients.createDefault();
-	private static Map<String, Dispatch> Instances = new HashMap<>();			//实例映射
 	
 	abstract public String Trans(String from, String targ, String query) throws Exception;
 	abstract protected String ParseJsonString(String jsonString);
 	
 	static public Dispatch Instance(String name) throws Exception{
-		String ClassName = classMap.get(name);
-		if(ClassName == null){	//不存在对应的类, 无法实例化.
-			return null;
-		}
-		
-		if( Instances.get(ClassName) == null){
-			Dispatch dispatch = (Dispatch)Class.forName(ClassName).newInstance();
-			Instances.put(ClassName, dispatch);
-		}
-		return Instances.get(ClassName);
+		System.out.println(name);
+		return classMap.get(name);
+	}
+	
+	static public Dispatch Instance2(String name) throws Exception{
+		return null;
 	}
 	
 	protected synchronized String execute() throws Exception{
-		
 		HttpUriRequest request = params.RequestCreateByUrl(base);		//根据不同的参数情况，创建不同的request(get或post)
 		CloseableHttpResponse response = httpClient.execute(request);
-		
 		return InputStream2JsonString(response.getEntity().getContent());	//将输入流全部读取出来转换为标准json字符串，在该函数会关闭输入流
 	}
 	

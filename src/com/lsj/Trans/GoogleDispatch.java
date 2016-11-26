@@ -12,9 +12,9 @@ public class GoogleDispatch extends Dispatch {
 	private static ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
 	
 	static{
-		String ClassName = GoogleDispatch.class.getName();
-		classMap.put("google", ClassName);
-		classMap.put("Google", ClassName);
+		GoogleDispatch instance = new GoogleDispatch();
+		classMap.put("google", instance);
+		classMap.put("Google", instance);
 	}
 	
 	public GoogleDispatch(){

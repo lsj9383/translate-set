@@ -53,8 +53,31 @@ dispatch = Dispatch.Instance("Jinshan");
 ```
 
 #三、扩展
-只要用户知道翻译所需要发送的http请求的详细信息以及返回数据的解析方式，那么用户就可以通过继承Dispatch类和使用HttpParams类来完成自己的翻译实体类。
-
+只要用户知道翻译所需要发送的http请求的详细信息以及返回数据的解析方式，那么用户就可以通过继承Dispatch类和使用HttpParams类来完成自己的翻译实体类。作自行扩展主要需要知道以下类:
+###1.HttpParams
+用来添加需要上传的数据,POST请求或GET请求中的数据将会保存在该类中。需要引起注意的是这是个抽象类不能直接实例化，这是因为不同的请求方式其细节是不同的，该类已经将细节封装了起来并由其子类实现。
+####1).初始化
+当前支持有限，只支持两种子类实现。
+```java
+PostParams = new HttpPostParams();	//用来添加并保存Post的数据
+GetParams = new HttpGetParams();	//用来添加并保存Get的数据
+```
+####2).添加数据
+都只使用了最简单的情况，以key-value的方式将数据进行保存。需要注意的是, put方法是会返回对象本身的，因此可以通过链式方式进行数据的添加，这样代码更为美观，更少冗余。
+```java
+Params.put("from", langMap.get(from))
+		.put("to", langMap.get(targ))
+		.put("query", query)
+		.put("transtype", "translang")
+		.put("simple_means_flag", "3");
+```
+####3).创建请求对象
+为了更方便的控制，这里提供了根据具体的请求方式创建对应的请求对象的接口，该请求对象是可以直接发出请求的，也可以客户对请求进行二次加工，例如添加cookie或者请求头。
+```java
+HttpUriRequest request = params.RequestCreateByUrl(base);
+CloseableHttpResponse response = httpClient.execute(request);
+String responseContent = response.getEntity().getContent());
+```
 
 ###2.翻译
 ```JAVA
