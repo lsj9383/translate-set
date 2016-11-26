@@ -25,11 +25,11 @@ public class JinshanDispatch extends Dispatch {
 				.put("w", query);
 		
 		String jsonString = execute();
-		return ParseJsonString(jsonString);
+		return ParseString(jsonString);
 	}
 	
 	@Override
-	protected String ParseJsonString(String jsonString){
+	protected String ParseString(String jsonString){
 		JSONObject jsonObject = JSONObject.fromObject(jsonString);
 		return jsonObject.getJSONObject("content").getString("out");
 	}

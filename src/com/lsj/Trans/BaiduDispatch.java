@@ -30,11 +30,11 @@ public class BaiduDispatch extends Dispatch {
 		
 		String jsonString = execute();
 		
-		return ParseJsonString(jsonString);
+		return ParseString(jsonString);
 	}
 	
 	@Override
-	protected String ParseJsonString(String jsonString){
+	protected String ParseString(String jsonString){
 		JSONObject jsonObject = JSONObject.fromObject(jsonString);
 		JSONArray segments = jsonObject.getJSONObject("trans_result").getJSONArray("data");
 		StringBuilder result = new StringBuilder();

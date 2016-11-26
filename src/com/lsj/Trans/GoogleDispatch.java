@@ -54,11 +54,11 @@ public class GoogleDispatch extends Dispatch {
 		
 		String jsonString = execute();
 		
-		return ParseJsonString(jsonString);
+		return ParseString(jsonString);
 	}
 	
 	@Override
-	protected String ParseJsonString(String jsonString){
+	protected String ParseString(String jsonString){
 		JSONArray jsonArray = JSONArray.fromObject(jsonString);
 		JSONArray segments = jsonArray.getJSONArray(0);
 		StringBuilder result = new StringBuilder();

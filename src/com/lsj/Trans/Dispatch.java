@@ -20,7 +20,7 @@ public abstract class Dispatch {
 	private CloseableHttpClient httpClient = HttpClients.createDefault();
 	
 	abstract public String Trans(String from, String targ, String query) throws Exception;
-	abstract protected String ParseJsonString(String jsonString);
+	abstract protected String ParseString(String jsonString);
 	
 	static public Dispatch Instance(String name) throws Exception{
 		System.out.println(name);

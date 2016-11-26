@@ -51,6 +51,16 @@ dispatch = Dispatch.Instance("Youdao");
 dispatch = Dispatch.Instance("jinshan");
 dispatch = Dispatch.Instance("Jinshan");
 ```
+###2.翻译
+```JAVA
+/*
+ *langOri 和 langTag 用于指定中英文
+ *中文 "zh"
+ *英文 "en"
+ *
+ */
+dispatch.Trans(langOri, langTag, string);
+```
 
 #三、扩展
 只要用户知道翻译所需要发送的http请求的详细信息以及返回数据的解析方式，那么用户就可以通过继承Dispatch类和使用HttpParams类来完成自己的翻译实体类。作自行扩展主要需要知道以下类:
@@ -78,17 +88,47 @@ HttpUriRequest request = params.RequestCreateByUrl(base);
 CloseableHttpResponse response = httpClient.execute(request);
 String responseContent = response.getEntity().getContent());
 ```
+###2.Dispatch
+HttpParams抽象类只是个工具类，可以单独抽取出来使用，为了更方便我们的开发，提供了Dispatch抽象类，我们开发新类都应该继承于该抽象类。除此外还需关注一下几点
+####1).对静态初始化函数的实现
+翻译属于服务类，不同的Dispatch服务类只需要一个对象即可，即需要实现单例类。为了进一步减少代码冗余，单例的管理已经全部放在了Dispatch抽象类中了。我们只需要在程序里面讲程序进行单例的注册即可。只有经过注册的类才能收到Dispatch的管理。
+```java
+package com.lsj.dispatch;
 
-###2.翻译
-```JAVA
-/*
- *langOri 和 langTag 用于指定中英文
- *中文 "zh"
- *英文 "en"
- *
- */
-dispatch.Trans(langOri, langTag, string);
+public class MyDispatch extends Dispatch {
+	static {
+		Dispatch instance = new MyDispatch();
+		classMap.put("myDispatch", instance);
+	}
+}
 ```
+如上述所示，在static将当前类的实例放入classMap中，这样通过`Dispatch.Instance("myDispatch")`方法就能取出放入的实例。需要注意的是，由于static是在类加载的时候才调用，因此要实际使用的时候需要客户端进行类加载`Class.forName("com.lsj.dispatch.MyDispatch");`，这样才会调用`MyDispatch类`的static构造函数。
+####2).翻译方法
+Dispatch中有一个接口是进行具体的翻译服务，在该接口方法实现中，需要使用`params`对象，这个对象是在Dispatch中声明的HttpParams对象。当对象将需要传递的参数添加好后，就调用Dispatch的execute方法，该方法将会自动提取params中的请求进行发送。
+```java
+@Override
+public String Trans(String from, String targ, String query) throws Exception{
+	
+	params = new HttpPostParams()
+			.put(key, value);
+	
+	String jsonString = execute();
+	
+	return ParseJsonString(jsonString);
+}
+```
+####3).数据解析
+不同的翻译网站返回的结果的数据类型、数据结构都是不同的。例如有的数据类型是json，有的数据类型是xml，而数据结构更是大相径庭。为了适应这多变的情况，需要开发人员熟悉具体的数据类型和结构，自行做解析数据并提取出需要的内容。
+```java
+@Override
+protected String ParseJsonString(String jsonString){
+	JSONObject jsonObject = JSONObject.fromObject(jsonString);		//将json字符串转换为json对象
+	....
+	return ... ;
+}
+```
+
+以上就是一个完整的Dispatch扩展的开发方式，[这里](https://github.com/lsj9383/TranslateSet/blob/master/src/com/lsj/Trans/JinshanDispatch.java) 可以参考一个Dispatch子类的实现。
 
 #附录：jar清单
 * HttpClient jar(第三方jar)

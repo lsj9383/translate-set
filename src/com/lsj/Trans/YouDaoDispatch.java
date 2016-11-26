@@ -29,11 +29,11 @@ public class YoudaoDispatch extends Dispatch {
 				.put("ue", "UTF-8")
 				.put("action", "FY_BY_CLICKBUTTON")
 				.put("typoResult", "true");
-		return ParseJsonString(execute());
+		return ParseString(execute());
 	}
 	
 	@Override
-	protected String ParseJsonString(String jsonString){
+	protected String ParseString(String jsonString){
 		StringBuilder result = new StringBuilder();
 		JSONObject jsonObject = JSONObject.fromObject(jsonString);
 		JSONArray segments = jsonObject.getJSONArray("translateResult");
