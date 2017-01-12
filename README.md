@@ -102,7 +102,7 @@ public class MyDispatch extends Dispatch {
 	}
 }
 ```
-如上述所示，在static将当前类的实例放入classMap中，这样通过`Dispatch.Instance("myDispatch")`方法就能取出放入的实例。需要注意的是，由于static是在类加载的时候才调用，客户端进行类加载`Class.forName("com.lsj.dispatch.MyDispatch");`，这样才会调用`MyDispatch类`的static构造函数。
+如上述所示，在static将当前类的实例放入classMap中，这样通过`Dispatch.Instance("myDispatch")`方法就能取出放入的实例。需要注意的是，由于static是在类加载的时候才调用，客户端进行类加载`Class.forName("com.lsj.dispatch.MyDispatch");`这样才会调用`MyDispatch类`的static构造函数。
 ####2).翻译方法
 Dispatch中有一个接口是进行具体的翻译服务，在该接口方法实现中，需要使用`params`对象，这个对象是在Dispatch中声明的HttpParams对象。当对象将需要传递的参数添加好后，就调用Dispatch的execute方法，该方法将会自动提取params中的请求进行发送。
 ```java

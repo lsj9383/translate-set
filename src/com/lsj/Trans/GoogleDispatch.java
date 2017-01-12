@@ -5,6 +5,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
 import com.lsj.trans.params.HttpGetParams;
+import com.lsj.trans.params.HttpParams;
 
 import net.sf.json.JSONArray;
 
@@ -18,7 +19,6 @@ public class GoogleDispatch extends Dispatch {
 	}
 	
 	public GoogleDispatch(){
-		this.base = "http://translate.google.cn/translate_a/single";
 		langMap.put("en", "en");
 		langMap.put("zh", "zh-CN");
 	}
@@ -26,7 +26,7 @@ public class GoogleDispatch extends Dispatch {
 	@Override
 	public String Trans(String from, String targ, String query) throws Exception{
 		
-		params = new HttpGetParams()
+		HttpParams params = new HttpGetParams()
 				.put("client", "t")
 				.put("sl", langMap.get(from))
 				.put("tl", langMap.get(targ))
@@ -52,13 +52,12 @@ public class GoogleDispatch extends Dispatch {
 				.put("tk", tk(query))
 				.put("q", query);
 		
-		String jsonString = execute();
-		
+		String jsonString = params.Send("http://translate.google.cn/translate_a/single");
 		return ParseString(jsonString);
 	}
 	
-	@Override
-	protected String ParseString(String jsonString){
+	
+	private String ParseString(String jsonString){
 		JSONArray jsonArray = JSONArray.fromObject(jsonString);
 		JSONArray segments = jsonArray.getJSONArray(0);
 		StringBuilder result = new StringBuilder();

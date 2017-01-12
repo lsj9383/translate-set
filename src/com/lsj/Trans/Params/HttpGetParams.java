@@ -1,8 +1,11 @@
 package com.lsj.trans.params;
 
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 
 public class HttpGetParams extends HttpParams{
 	
@@ -13,14 +16,15 @@ public class HttpGetParams extends HttpParams{
 	}
 
 	@Override
-	public HttpUriRequest RequestCreateByUrl(String base) throws Exception {
-		URIBuilder uri = new URIBuilder(base);
+	public String Send(String baseUrl) throws Exception {
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		URIBuilder uri = new URIBuilder(baseUrl);
 		for (String key : params.keySet()) {
 			String value = params.get(key);
 			uri.addParameter(key, value);
 		}
-		
-		HttpGet request = new HttpGet(uri.toString());
-		return request;
+		HttpUriRequest request = new HttpGet(uri.toString());
+		CloseableHttpResponse response = httpClient.execute(request);
+		return ReadInputStream(response.getEntity().getContent());
 	}
 }

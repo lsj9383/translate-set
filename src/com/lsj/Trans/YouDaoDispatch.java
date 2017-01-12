@@ -1,5 +1,6 @@
 package com.lsj.trans;
 
+import com.lsj.trans.params.HttpParams;
 import com.lsj.trans.params.HttpPostParams;
 
 import net.sf.json.JSONArray;
@@ -13,14 +14,13 @@ public class YoudaoDispatch extends Dispatch {
 	}
 	
 	public YoudaoDispatch(){
-		this.base = "http://fanyi.youdao.com/translate?smartresult=dict&smartresult=rule&smartresult=ugc&sessionFrom=https://www.baidu.com/link";
 		langMap.put("en", "EN");
 		langMap.put("zh", "ZH_CN");
 	}
 	
 	@Override
 	public String Trans(String from, String targ, String query) throws Exception{
-		params = new HttpPostParams()
+		HttpParams params = new HttpPostParams()
 				.put("type", langMap.get(from)+"2"+langMap.get(targ))
 				.put("i", query)
 				.put("doctype", "json")
@@ -29,11 +29,11 @@ public class YoudaoDispatch extends Dispatch {
 				.put("ue", "UTF-8")
 				.put("action", "FY_BY_CLICKBUTTON")
 				.put("typoResult", "true");
-		return ParseString(execute());
+		
+		return ParseString(params.Send("http://fanyi.youdao.com/translate?smartresult=dict&smartresult=rule&smartresult=ugc&sessionFrom=https://www.baidu.com/link"));
 	}
 	
-	@Override
-	protected String ParseString(String jsonString){
+	private String ParseString(String jsonString){
 		StringBuilder result = new StringBuilder();
 		JSONObject jsonObject = JSONObject.fromObject(jsonString);
 		JSONArray segments = jsonObject.getJSONArray("translateResult");
