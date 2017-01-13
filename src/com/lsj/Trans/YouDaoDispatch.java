@@ -13,7 +13,7 @@ public class YoudaoDispatch extends Dispatch {
 		classMap.put("Youdao", dispatch);
 	}
 	
-	public YoudaoDispatch(){
+	private YoudaoDispatch(){
 		langMap.put("en", "EN");
 		langMap.put("zh", "ZH_CN");
 	}

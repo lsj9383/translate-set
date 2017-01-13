@@ -13,7 +13,7 @@ public class BaiduDispatch extends Dispatch {
 		classMap.put("Baidu", dispatch);
 	}
 	
-	public BaiduDispatch(){
+	private BaiduDispatch(){
 		langMap.put("en", "en");
 		langMap.put("zh", "zh");
 	}

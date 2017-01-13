@@ -12,7 +12,7 @@ public class JinshanDispatch extends Dispatch {
 		classMap.put("Jinshan", dispatch);
 	}
 	
-	public JinshanDispatch(){
+	private JinshanDispatch(){
 		langMap.put("en", "en");
 		langMap.put("zh", "zh");
 	}

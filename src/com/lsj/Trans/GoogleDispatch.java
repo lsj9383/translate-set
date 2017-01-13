@@ -18,7 +18,7 @@ public class GoogleDispatch extends Dispatch {
 		classMap.put("Google", instance);
 	}
 	
-	public GoogleDispatch(){
+	private GoogleDispatch(){
 		langMap.put("en", "en");
 		langMap.put("zh", "zh-CN");
 	}
