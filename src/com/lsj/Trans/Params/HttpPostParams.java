@@ -11,13 +11,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 
-public class HttpPostParams extends HttpParams{
-	@Override
-	public HttpParams put(String key, String value){
-		params.put(key, value);
-		return this;
-	}
-
+public class HttpPostParams extends AbstractHttpParams{
 	@Override
 	public String Send(String base) throws Exception {
 		CloseableHttpClient httpClient = HttpClients.createDefault();

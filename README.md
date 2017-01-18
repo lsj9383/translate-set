@@ -18,13 +18,13 @@ public class Main {
 	}
 ```
 
-###1.*引入包*
+###2.*引入包*
 仅仅需要一个翻译转发的类，需要注意的是，这是一个抽象类不可实例化。
 ```java
 import com.lsj.Trans.Dispatch;
 ```
 
-###2.*加载需要的类*
+###3.*加载需要的类*
 在实际进行翻译之前，需要加载用到的转发类。
 ```java
 Class.forName("com.lsj.trans.BaiduDispatch");		//加载百度的翻译转发类
@@ -33,13 +33,13 @@ Class.forName("com.lsj.trans.JinshanDispatch");		//加载金山的翻译转发�
 Class.forName("com.lsj.trans.YoudaoDispatch");		//加载有道的翻译转发类
 ```
 
-###3.*获得翻译实体*
+###4.*获得翻译实体*
 有各种不同的翻译网站，每个网站对应一个类，并且每个网站类都是采用的单例模式。单例由Dispatch管理。当然获取翻译实体必须要事先**加载**，若没有加载则无法得到翻译实体(返回`null`)。
 ```java
 Dispatch dispatch = Dispatch.Instance("google");
 ```
 
-###4.*翻译*
+###5.*翻译*
 ```java
 String zhResult = dispatch.Trans("en", "zh", "Learn Git and GitHub without any code!");		//英文翻译为中文
 String enResult = dispatch.Trans("zh", "en", "希拉里败选后大哭");							//中文翻译为英文
@@ -75,12 +75,13 @@ dispatch.Trans(langOri, langTag, string);
 #三、*扩展*
 扩展这里介绍如何使用本项目提供的构架扩展翻译源。只要用户知道翻译所需要发送的http请求的详细信息以及返回数据的解析方式，那么用户就可以通过继承Dispatch类和使用HttpParams类来完成自己的翻译实体类。作自行扩展主要需要知道以下类:
 ###1.*HttpParams*
-用来添加需要上传的数据,POST请求或GET请求中的数据将会保存在该类中。需要引起注意的是这是个抽象类不能直接实例化，这是因为不同的请求方式其细节是不同的，该类已经将细节封装了起来并由其子类实现。
+这是一个接口，它提供两个方法`put()`和`Send()`，分布用于添加待发送的数据以及进行发送。
 ####1).*初始化*
 当前支持有限，只支持两种子类实现。
 ```java
-PostParams = new HttpPostParams();	//用来添加并保存Post的数据
-GetParams = new HttpGetParams();	//用来添加并保存Get的数据
+HttpParams postParams = new HttpPostParams();	//用来添加并保存Post的数据
+HttpParams getParams = new HttpGetParams();		//用来添加并保存Get的数据
+HttpParams mimeParams = new HttpMimeParams();	//用来添加并保存Multipart/form数据
 ```
 ####2).*添加数据*
 都只使用了最简单的情况，以key-value的方式将数据进行保存。需要注意的是, put方法是会返回对象本身的，因此可以通过链式方式进行数据的添加，这样代码更为美观，更少冗余。
