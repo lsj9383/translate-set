@@ -6,6 +6,7 @@ import javax.script.ScriptEngineManager;
 
 import com.lsj.trans.params.HttpGetParams;
 import com.lsj.trans.params.HttpParams;
+import com.lsj.trans.params.HttpPostParams;
 
 import net.sf.json.JSONArray;
 
@@ -26,8 +27,14 @@ public class GoogleDispatch extends Dispatch {
 	@Override
 	public String Trans(String from, String targ, String query) throws Exception{
 		
-		HttpParams params = new HttpGetParams()
-				.put("client", "t")
+		HttpParams params = null;
+		if(query.length() > 999){
+			params = new HttpPostParams();		//长度大于999采用post
+		}else{
+			params = new HttpGetParams();		//长度小于999采用get
+		}
+		
+		params.put("client", "t")
 				.put("sl", langMap.get(from))
 				.put("tl", langMap.get(targ))
 				.put("hl", "zh-CN")

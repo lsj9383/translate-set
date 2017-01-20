@@ -29,7 +29,6 @@ public class BaiduDispatch extends Dispatch {
 				.put("simple_means_flag", "3");
 		
 		String jsonString = params.Send("http://fanyi.baidu.com/v2transapi");
-		
 		return ParseString(jsonString);
 	}
 	
