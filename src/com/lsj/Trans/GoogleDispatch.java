@@ -4,7 +4,6 @@ import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
-import com.lsj.trans.params.HttpGetParams;
 import com.lsj.trans.params.HttpParams;
 import com.lsj.trans.params.HttpPostParams;
 
@@ -22,17 +21,15 @@ public class GoogleDispatch extends Dispatch {
 	private GoogleDispatch(){
 		langMap.put("en", "en");
 		langMap.put("zh", "zh-CN");
+		langMap.put("ru", "ru");
 	}
 	
 	@Override
 	public String Trans(String from, String targ, String query) throws Exception{
 		
 		HttpParams params = null;
-		if(query.length() > 999){
-			params = new HttpPostParams();		//长度大于999采用post
-		}else{
-			params = new HttpGetParams();		//长度小于999采用get
-		}
+		params = new HttpPostParams();		//统一采用post，若字符长度小于999用get也可以的
+		String tk = tk(query);
 		
 		params.put("client", "t")
 				.put("sl", langMap.get(from))
@@ -56,7 +53,7 @@ public class GoogleDispatch extends Dispatch {
 				.put("ssel", "0")
 				.put("tsel", "0")
 				.put("kc", "11")
-				.put("tk", tk(query))
+				.put("tk", tk)
 				.put("q", query);
 		
 		String jsonString = params.Send("http://translate.google.cn/translate_a/single");
