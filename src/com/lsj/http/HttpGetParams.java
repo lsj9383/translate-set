@@ -1,4 +1,4 @@
-package com.lsj.trans.params;
+package com.lsj.http;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;

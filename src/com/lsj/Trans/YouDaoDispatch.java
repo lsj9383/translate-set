@@ -1,7 +1,7 @@
 package com.lsj.trans;
 
-import com.lsj.trans.params.HttpParams;
-import com.lsj.trans.params.HttpPostParams;
+import com.lsj.http.HttpParams;
+import com.lsj.http.HttpPostParams;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;

@@ -1,4 +1,4 @@
-package com.lsj.trans.params;
+package com.lsj.http;
 
 import java.io.File;
 

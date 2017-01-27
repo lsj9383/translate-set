@@ -1,4 +1,4 @@
-package com.lsj.trans.params;
+package com.lsj.http;
 
 public interface HttpParams {
 	public String Send(String baseUrl) throws Exception;
