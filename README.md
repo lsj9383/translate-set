@@ -1,5 +1,5 @@
 #TranslateSet
-一种小型的翻译集合工具。[这里](https://github.com/lsj9383/TranslateSet/blob/master/src/Demo/Main.java) 是一个使用示例。已利用该工具提供了[在线翻译](http://139.199.209.106/trans/) 工具。
+一种小型的翻译集合工具，[这里](https://github.com/lsj9383/TranslateSet/blob/master/src/Demo/Main.java) 是一个使用示例。并且提供[在线翻译](http://139.199.209.106/trans/) 。
 目前仅支持**汉英互译**，支持的翻译来源:
 * Google翻译
 * 百度翻译
@@ -16,6 +16,7 @@ public class Main {
 		Class.forName("com.lsj.trans.GoogleDispatch");		
 		System.out.println(Dispatch.Instance("google").Trans("en", "zh", "hello world"));
 	}
+}
 ```
 
 ###2.*引入包*
