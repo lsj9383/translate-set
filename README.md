@@ -1,11 +1,11 @@
 #TranslateSet
 一种小型的翻译集合工具，[这里](https://github.com/lsj9383/TranslateSet/blob/master/src/Demo/Main.java) 是一个使用示例。并且提供[在线翻译](http://139.199.209.106/trans/) 。
 目前仅支持**汉英互译**，支持的翻译来源:
-* [谷歌翻译](http://translate.google.cn/).
-* [百度翻译](http://fanyi.baidu.com/).
-* [腾讯翻译](http://fanyi.qq.com/).
-* [有道翻译](http://fanyi.youdao.com/).
-* [金山翻译](http://fy.iciba.com/).
+* [谷歌翻译](http://translate.google.cn/)
+* [百度翻译](http://fanyi.baidu.com/)
+* [腾讯翻译](http://fanyi.qq.com/)
+* [有道翻译](http://fanyi.youdao.com/)
+* [金山翻译](http://fy.iciba.com/)
 
 #一、*快速开始*
 将仓库的lib目录下的所有jar添加到classpath中。并确保ide的编码方式是**utf-8**。
