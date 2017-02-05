@@ -9,6 +9,7 @@ public class Main {
 		Class.forName("com.lsj.trans.GoogleDispatch");
 		Class.forName("com.lsj.trans.JinshanDispatch");
 		Class.forName("com.lsj.trans.YoudaoDispatch");
+		Class.forName("com.lsj.trans.TencentDispatch");
 	}
 	
 	public static void main(String[] args) throws Exception {
@@ -19,6 +20,7 @@ public class Main {
 		System.out.println("有道 : " + Dispatch.Instance("youdao").Trans("en", "zh", origin));
 		System.out.println("百度 : " + Dispatch.Instance("baidu").Trans("en", "zh", origin));
 		System.out.println("谷歌 : " + Dispatch.Instance("google").Trans("en", "zh", origin));
+		System.out.println("腾讯 : " + Dispatch.Instance("tencent").Trans("en", "zh", origin));
 		System.out.println("\n");
 		
 	
@@ -27,8 +29,7 @@ public class Main {
 		System.out.println("有道 : " + Dispatch.Instance("youdao").Trans("zh", "en", origin));
 		System.out.println("百度 : " + Dispatch.Instance("baidu").Trans("zh", "en", origin));
 		System.out.println("谷歌 : " + Dispatch.Instance("google").Trans("zh", "en", origin));
-		
-//		System.out.println(Dispatch.Instance("google").Trans("ru", "zh", "Внатуре, спасибо тебе, братан. Короче, приходил сюда один такой сталкер, ну... мы с ним ничего не делали, честно. Он спустился к нам на базу к трубам вниз, так тут откуда-то кровосос взялся, да напал на наших людей, уволок двоих туда в логово двоих, включая его. Братана моего покоцало, я его сюда вытащил, кровь никак не остановить. Если ищешь его, спускайся вниз, только будь осторожен, опасайся той твари."));
+		System.out.println("腾讯 : " + Dispatch.Instance("tencent").Trans("zh", "en", origin));
 	}
 
 }

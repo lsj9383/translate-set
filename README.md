@@ -1,10 +1,11 @@
 #TranslateSet
 一种小型的翻译集合工具，[这里](https://github.com/lsj9383/TranslateSet/blob/master/src/Demo/Main.java) 是一个使用示例。并且提供[在线翻译](http://139.199.209.106/trans/) 。
 目前仅支持**汉英互译**，支持的翻译来源:
-* Google翻译
-* 百度翻译
-* 有道翻译
-* 金山翻译
+* [谷歌翻译](http://translate.google.cn/).
+* [百度翻译](http://fanyi.baidu.com/).
+* [腾讯翻译](http://fanyi.qq.com/).
+* [有道翻译](http://fanyi.youdao.com/).
+* [金山翻译](http://fy.iciba.com/).
 
 #一、*快速开始*
 将仓库的lib目录下的所有jar添加到classpath中。并确保ide的编码方式是**utf-8**。
@@ -32,6 +33,7 @@ Class.forName("com.lsj.trans.BaiduDispatch");		//加载百度的翻译转发类
 Class.forName("com.lsj.trans.GoogleDispatch");		//加载Google的翻译转发类
 Class.forName("com.lsj.trans.JinshanDispatch");		//加载金山的翻译转发类
 Class.forName("com.lsj.trans.YoudaoDispatch");		//加载有道的翻译转发类
+Class.forName("com.lsj.trans.TencentDispatch");		//加载腾讯的翻译转发类
 ```
 
 ###4.*获得翻译实体*
@@ -61,6 +63,9 @@ dispatch = Dispatch.Instance("Youdao");
 
 dispatch = Dispatch.Instance("jinshan");
 dispatch = Dispatch.Instance("Jinshan");
+
+dispatch = Dispatch.Instance("Tencent");
+dispatch = Dispatch.Instance("tencent");
 ```
 ###2.*翻译*
 ```JAVA
