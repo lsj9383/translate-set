@@ -1,5 +1,5 @@
 #TranslateSet
-一种小型的翻译集合工具，[这里](https://github.com/lsj9383/TranslateSet/blob/master/src/Demo/Main.java) 是一个使用示例。并且提供[在线翻译](http://139.199.209.106/trans/) 。
+一种小型的翻译集合工具，[这里](https://github.com/lsj9383/translate-set/blob/master/src/test/TransTest.java) 是一个使用示例。并且提供[在线翻译](http://139.199.209.106/trans/) 。
 目前仅支持**汉英互译**，支持的翻译来源:
 * [谷歌翻译](http://translate.google.cn/)
 * [百度翻译](http://fanyi.baidu.com/)
@@ -15,7 +15,7 @@ import com.lsj.trans.Dispatch;
 public class Main {
 	public static void main(String[] args) throws Exception {
 		Class.forName("com.lsj.trans.GoogleDispatch");		
-		System.out.println(Dispatch.Instance("google").Trans("en", "zh", "hello world"));
+		System.out.println(Dispatch.Instance("google").Trans(LANG.EN, LANG.ZH, "hello world"));
 	}
 }
 ```
@@ -44,8 +44,8 @@ Dispatch dispatch = Dispatch.Instance("google");
 
 ###5.*翻译*
 ```java
-String zhResult = dispatch.Trans("en", "zh", "Learn Git and GitHub without any code!");		//英文翻译为中文
-String enResult = dispatch.Trans("zh", "en", "希拉里败选后大哭");							//中文翻译为英文
+String zhResult = dispatch.Trans(LANG.EN, LANG.ZH, "Learn Git and GitHub without any code!");		//英文翻译为中文
+String enResult = dispatch.Trans(LANG.ZH, LANG.EN, "希拉里败选后大哭");							//中文翻译为英文
 ```
 
 #二、*API*
@@ -70,12 +70,12 @@ dispatch = Dispatch.Instance("tencent");
 ###2.*翻译*
 ```JAVA
 /*
- *langOri 和 langTag 用于指定中英文
- *中文 "zh"
- *英文 "en"
+ *fromLang 和 toLang 用于指定源语言 与 目标翻译语言
+ *中文 LANG.ZH
+ *英文 LANG.EN
  *
  */
-dispatch.Trans(langOri, langTag, string);
+dispatch.Trans(LANG fromLang, LANG toLang, string);
 ```
 
 #三、*扩展*
