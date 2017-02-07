@@ -15,12 +15,12 @@ public class TencentDispatch extends Dispatch {
 	}
 	
 	private TencentDispatch(){
-		langMap.put("en", "1");
-		langMap.put("zh", "0");
+		langMap.put(LANG.EN, "1");
+		langMap.put(LANG.ZH, "0");
 	}
 
 	@Override
-	public String Trans(String from, String targ, String query) throws Exception {
+	public String Trans(LANG from, LANG targ, String query) throws Exception {
 		HttpParams params = new HttpPostParams()
 				.put("sl", langMap.get(from))
 				.put("tl", langMap.get(targ))

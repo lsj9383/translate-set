@@ -14,12 +14,12 @@ public class JinshanDispatch extends Dispatch {
 	}
 	
 	private JinshanDispatch(){
-		langMap.put("en", "en");
-		langMap.put("zh", "zh");
+		langMap.put(LANG.EN, "en");
+		langMap.put(LANG.ZH, "zh");
 	}
 	
 	@Override
-	public String Trans(String from, String targ, String query) throws Exception{
+	public String Trans(LANG from, LANG targ, String query) throws Exception{
 		HttpParams params = new HttpPostParams()
 				.put("f", langMap.get(from))
 				.put("t", langMap.get(targ))

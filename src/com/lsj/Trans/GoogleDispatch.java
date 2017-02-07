@@ -19,13 +19,13 @@ public class GoogleDispatch extends Dispatch {
 	}
 	
 	private GoogleDispatch(){
-		langMap.put("en", "en");
-		langMap.put("zh", "zh-CN");
-		langMap.put("ru", "ru");
+		langMap.put(LANG.EN, "en");
+		langMap.put(LANG.ZH, "zh-CN");
+		langMap.put(LANG.RU, "ru");
 	}
 	
 	@Override
-	public String Trans(String from, String targ, String query) throws Exception{
+	public String Trans(LANG from, LANG targ, String query) throws Exception{
 		
 		HttpParams params = null;
 		params = new HttpPostParams();		//统一采用post，若字符长度小于999用get也可以的

@@ -14,12 +14,12 @@ public class YoudaoDispatch extends Dispatch {
 	}
 	
 	private YoudaoDispatch(){
-		langMap.put("en", "EN");
-		langMap.put("zh", "ZH_CN");
+		langMap.put(LANG.EN, "EN");
+		langMap.put(LANG.ZH, "ZH_CN");
 	}
 	
 	@Override
-	public String Trans(String from, String targ, String query) throws Exception{
+	public String Trans(LANG from, LANG targ, String query) throws Exception{
 		HttpParams params = new HttpPostParams()
 				.put("type", langMap.get(from)+"2"+langMap.get(targ))
 				.put("i", query)

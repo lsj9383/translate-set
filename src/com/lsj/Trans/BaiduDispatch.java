@@ -15,12 +15,12 @@ public class BaiduDispatch extends Dispatch {
 	}
 	
 	private BaiduDispatch(){
-		langMap.put("en", "en");
-		langMap.put("zh", "zh");
+		langMap.put(LANG.EN, "en");
+		langMap.put(LANG.ZH, "zh");
 	}
 	
 	@Override
-	public String Trans(String from, String targ, String query) throws Exception{
+	public String Trans(LANG from, LANG targ, String query) throws Exception{
 		
 		HttpParams params = new HttpPostParams()
 				.put("from", langMap.get(from))
