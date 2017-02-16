@@ -6,7 +6,7 @@ import com.lsj.http.HttpPostParams;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-public class TencentDispatch extends Dispatch {
+public class TencentDispatch extends AbstractDispatch {
 	
 	static{
 		TencentDispatch dispatch = new TencentDispatch();
@@ -20,17 +20,17 @@ public class TencentDispatch extends Dispatch {
 	}
 
 	@Override
-	public String Trans(LANG from, LANG targ, String query) throws Exception {
+	protected String getResponse(LANG from, LANG targ, String query) throws Exception {
 		HttpParams params = new HttpPostParams()
 				.put("sl", langMap.get(from))
 				.put("tl", langMap.get(targ))
 				.put("st", query);
 
-		String jsonString = params.Send("http://fanyi.qq.com/api/translate");
-		return ParseString(jsonString);
+		return params.send("http://fanyi.qq.com/api/translate");
 	}
 	
-	private String ParseString(String jsonString){
+	@Override
+	protected String parseString(String jsonString){
 		StringBuilder str = new StringBuilder();
 		JSONObject rootObj = JSONObject.fromObject(jsonString);
 		JSONArray array = rootObj.getJSONArray("result");

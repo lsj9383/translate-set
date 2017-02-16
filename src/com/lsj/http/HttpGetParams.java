@@ -10,7 +10,7 @@ import org.apache.http.impl.client.HttpClients;
 public class HttpGetParams extends AbstractHttpParams{
 
 	@Override
-	public String Send(String baseUrl) throws Exception {
+	public String send(String baseUrl) throws Exception {
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		URIBuilder uri = new URIBuilder(baseUrl);
 		for (String key : params.keySet()) {
@@ -19,6 +19,6 @@ public class HttpGetParams extends AbstractHttpParams{
 		}
 		HttpUriRequest request = new HttpGet(uri.toString());
 		CloseableHttpResponse response = httpClient.execute(request);
-		return ReadInputStream(response.getEntity().getContent());
+		return readInputStream(response.getEntity().getContent());
 	}
 }

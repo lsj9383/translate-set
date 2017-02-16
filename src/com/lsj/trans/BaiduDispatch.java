@@ -6,7 +6,7 @@ import com.lsj.http.HttpPostParams;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-public class BaiduDispatch extends Dispatch {
+public class BaiduDispatch extends AbstractDispatch {
 	
 	static{
 		BaiduDispatch dispatch = new BaiduDispatch();
@@ -20,7 +20,7 @@ public class BaiduDispatch extends Dispatch {
 	}
 	
 	@Override
-	public String Trans(LANG from, LANG targ, String query) throws Exception{
+	public String getResponse(LANG from, LANG targ, String query) throws Exception{
 		
 		HttpParams params = new HttpPostParams()
 				.put("from", langMap.get(from))
@@ -29,11 +29,11 @@ public class BaiduDispatch extends Dispatch {
 				.put("transtype", "translang")
 				.put("simple_means_flag", "3");
 		
-		String jsonString = params.Send("http://fanyi.baidu.com/v2transapi");
-		return ParseString(jsonString);
+		return params.send("http://fanyi.baidu.com/v2transapi");
 	}
 	
-	private String ParseString(String jsonString){
+	@Override
+	protected String parseString(String jsonString){
 		JSONObject jsonObject = JSONObject.fromObject(jsonString);
 		JSONArray segments = jsonObject.getJSONObject("trans_result").getJSONArray("data");
 		StringBuilder result = new StringBuilder();

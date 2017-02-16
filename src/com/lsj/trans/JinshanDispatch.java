@@ -5,7 +5,7 @@ import com.lsj.http.HttpPostParams;
 
 import net.sf.json.JSONObject;
 
-public class JinshanDispatch extends Dispatch {
+public class JinshanDispatch extends AbstractDispatch {
 	
 	static{
 		JinshanDispatch dispatch = new JinshanDispatch();
@@ -19,20 +19,20 @@ public class JinshanDispatch extends Dispatch {
 	}
 	
 	@Override
-	public String Trans(LANG from, LANG targ, String query) throws Exception{
+	protected String getResponse(LANG from, LANG targ, String query) throws Exception{
 		HttpParams params = new HttpPostParams()
 				.put("f", langMap.get(from))
 				.put("t", langMap.get(targ))
 				.put("w", query);
 		
-		String jsonString = params.Send("http://fy.iciba.com/ajax.php?a=fy");
-	
-		return ParseString(jsonString);
+		return params.send("http://fy.iciba.com/ajax.php?a=fy");
 	}
 	
 	
-	private String ParseString(String jsonString){
+	@Override
+	protected String parseString(String jsonString){
 		JSONObject jsonObject = JSONObject.fromObject(jsonString);
-		return jsonObject.getJSONObject("content").getString("out");
+		String result = jsonObject.getJSONObject("content").getString("out");
+		return result;
 	}
 }

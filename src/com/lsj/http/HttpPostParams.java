@@ -13,7 +13,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 public class HttpPostParams extends AbstractHttpParams{
 	@Override
-	public String Send(String base) throws Exception {
+	public String send(String base) throws Exception {
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		List<NameValuePair> formparams = new ArrayList<NameValuePair>();
 		for (String key : params.keySet()) {
@@ -24,6 +24,6 @@ public class HttpPostParams extends AbstractHttpParams{
 		request.setEntity(new UrlEncodedFormEntity(formparams, "UTF-8"));
 		request.setHeader("Content-Type", "application/x-www-form-urlencoded");		//内容为post
 		CloseableHttpResponse response = httpClient.execute(request);
-		return ReadInputStream(response.getEntity().getContent());
+		return readInputStream(response.getEntity().getContent());
 	}
 }

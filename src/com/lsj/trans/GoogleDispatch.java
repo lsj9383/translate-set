@@ -9,7 +9,7 @@ import com.lsj.http.HttpPostParams;
 
 import net.sf.json.JSONArray;
 
-public class GoogleDispatch extends Dispatch {
+public class GoogleDispatch extends AbstractDispatch {
 	private static ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
 	
 	static{
@@ -25,7 +25,7 @@ public class GoogleDispatch extends Dispatch {
 	}
 	
 	@Override
-	public String Trans(LANG from, LANG targ, String query) throws Exception{
+	protected String getResponse(LANG from, LANG targ, String query) throws Exception{
 		
 		HttpParams params = null;
 		params = new HttpPostParams();		//统一采用post，若字符长度小于999用get也可以的
@@ -56,12 +56,11 @@ public class GoogleDispatch extends Dispatch {
 				.put("tk", tk)
 				.put("q", query);
 		
-		String jsonString = params.Send("http://translate.google.cn/translate_a/single");
-		return ParseString(jsonString);
+		return params.send("http://translate.google.cn/translate_a/single");
 	}
 	
-	
-	private String ParseString(String jsonString){
+	@Override
+	protected String parseString(String jsonString){
 		JSONArray jsonArray = JSONArray.fromObject(jsonString);
 		JSONArray segments = jsonArray.getJSONArray(0);
 		StringBuilder result = new StringBuilder();

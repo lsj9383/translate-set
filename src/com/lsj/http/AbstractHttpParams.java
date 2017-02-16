@@ -14,7 +14,7 @@ public abstract class AbstractHttpParams implements HttpParams{
 		return this;
 	}
 
-	protected String ReadInputStream(InputStream is) throws Exception{
+	protected String readInputStream(InputStream is) throws Exception{
 		InputStreamReader ir = new InputStreamReader(is);	//将字节流转换为字符流，否则中文容易乱码
 		StringBuilder text = new StringBuilder();
 		char[] buffer = new char[1024];

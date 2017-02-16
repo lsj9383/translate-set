@@ -15,7 +15,7 @@ import org.apache.http.impl.client.HttpClients;
 public class HttpMimeParams extends AbstractHttpParams {
 	
 	@Override
-	public String Send(String baseUrl) throws Exception {
+	public String send(String baseUrl) throws Exception {
 		//1)构建实体
 		MultipartEntityBuilder entBuilder = MultipartEntityBuilder.create();		  
 		for (String key : params.keySet()) {
@@ -40,6 +40,6 @@ public class HttpMimeParams extends AbstractHttpParams {
 		HttpPost request = new HttpPost(baseUrl);
 		request.setEntity(reqEntity);
 		CloseableHttpResponse response = httpClient.execute(request);
-		return ReadInputStream(response.getEntity().getContent());
+		return readInputStream(response.getEntity().getContent());
 	}
 }
