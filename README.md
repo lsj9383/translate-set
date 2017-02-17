@@ -8,7 +8,7 @@
 * [金山翻译](http://fy.iciba.com/)
 
 #一、*快速开始*
-将仓库的lib目录下的所有jar添加到classpath中。并确保ide的编码方式是**utf-8**。
+将仓库的lib目录下的所有jar添加到classpath中。并确保ide的编码方式是**【UTF-8】**。
 ###1.*最小的实例*
 ```java
 import com.lsj.trans.LANG;
