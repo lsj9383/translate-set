@@ -1,4 +1,4 @@
-package com.lsj.trans;
+package com.lsj.trans.impl;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
@@ -6,19 +6,17 @@ import javax.script.ScriptEngineManager;
 
 import com.lsj.http.HttpParams;
 import com.lsj.http.HttpPostParams;
+import com.lsj.trans.AbstractNetworkTranslator;
+import com.lsj.trans.LANG;
+import com.lsj.trans.annotation.TranslatorComponent;
 
 import net.sf.json.JSONArray;
 
-public class GoogleDispatch extends AbstractDispatch {
+@TranslatorComponent(id = "google")
+final public class GoogleTranslator extends AbstractNetworkTranslator {
 	private static ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
 	
-	static{
-		GoogleDispatch instance = new GoogleDispatch();
-		classMap.put("google", instance);
-		classMap.put("Google", instance);
-	}
-	
-	private GoogleDispatch(){
+	public GoogleTranslator(){
 		langMap.put(LANG.EN, "en");
 		langMap.put(LANG.ZH, "zh-CN");
 		langMap.put(LANG.RU, "ru");

@@ -3,8 +3,8 @@ package com.lsj.trans;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class AbstractDispatch implements Dispatch {
-	protected static Map<String, AbstractDispatch> classMap = new HashMap<>();			//类名映射，由子类完成
+public abstract class AbstractNetworkTranslator implements Translator {
+	protected static Map<String, AbstractNetworkTranslator> classMap = new HashMap<>();			//类名映射，由子类完成
 	protected Map<LANG, String> langMap = new HashMap<>();					//语言映射，由子类完成
 	
 	@Override
@@ -13,7 +13,7 @@ public abstract class AbstractDispatch implements Dispatch {
 		return result;
 	}
 	
-	static public AbstractDispatch getInstance(String name) throws Exception{
+	static public AbstractNetworkTranslator getInstance(String name) throws Exception{
 		return classMap.get(name);
 	}
 	

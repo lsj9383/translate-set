@@ -1,19 +1,18 @@
-package com.lsj.trans;
+package com.lsj.trans.impl;
 
 import com.lsj.http.HttpParams;
 import com.lsj.http.HttpPostParams;
+import com.lsj.trans.AbstractNetworkTranslator;
+import com.lsj.trans.LANG;
+import com.lsj.trans.annotation.TranslatorComponent;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-public class YoudaoDispatch extends AbstractDispatch {
-	static{
-		YoudaoDispatch dispatch = new YoudaoDispatch();
-		classMap.put("youdao", dispatch);
-		classMap.put("Youdao", dispatch);
-	}
-	
-	private YoudaoDispatch(){
+@TranslatorComponent(id = "youdao")
+final public class YoudaoTranslator extends AbstractNetworkTranslator {
+
+	public YoudaoTranslator(){
 		langMap.put(LANG.EN, "EN");
 		langMap.put(LANG.ZH, "ZH_CN");
 	}

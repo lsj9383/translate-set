@@ -1,20 +1,18 @@
-package com.lsj.trans;
+package com.lsj.trans.impl;
 
 import com.lsj.http.HttpParams;
 import com.lsj.http.HttpPostParams;
+import com.lsj.trans.AbstractNetworkTranslator;
+import com.lsj.trans.LANG;
+import com.lsj.trans.annotation.TranslatorComponent;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-public class TencentDispatch extends AbstractDispatch {
-	
-	static{
-		TencentDispatch dispatch = new TencentDispatch();
-		classMap.put("tencent", dispatch);
-		classMap.put("Tencent", dispatch);
-	}
-	
-	private TencentDispatch(){
+@TranslatorComponent(id = "tencent")
+final public class TencentTranslator extends AbstractNetworkTranslator {
+
+	public TencentTranslator(){
 		langMap.put(LANG.EN, "1");
 		langMap.put(LANG.ZH, "0");
 	}
@@ -31,6 +29,7 @@ public class TencentDispatch extends AbstractDispatch {
 	
 	@Override
 	protected String parseString(String jsonString){
+		System.out.println(jsonString);
 		StringBuilder str = new StringBuilder();
 		JSONObject rootObj = JSONObject.fromObject(jsonString);
 		JSONArray array = rootObj.getJSONArray("result");
