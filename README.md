@@ -17,7 +17,7 @@ import com.lsj.trans.factory.TranslatorFactory;
 
 public class Main {
 	public static void main(String[] args) throws Exception {
-		factory = new TFactory();
+		TFactory factory = new TranslatorFactory();
 		System.out.println(factory.get("google").trans(LANG.EN, LANG.ZH, "hello world"));
 	}
 }
@@ -27,14 +27,14 @@ public class Main {
 仅仅需要一个翻译转发的类，需要注意的是，这是一个抽象类不可实例化。
 ```java
 import com.lsj.trans.LANG;							/* 翻译的语言支持 */
-import com.lsj.trans.factory.TFactory;				/* 翻译工厂 */
-import com.lsj.trans.factory.TranslatorFactory;		/* 工厂接口 */
+import com.lsj.trans.factory.TFactory;				/* 工厂接口 */
+import com.lsj.trans.factory.TranslatorFactory;		/* 翻译工厂 */
 ```
 
 ###3.*实例化翻译工厂*
 在实际进行翻译之前，需要初始化翻译工厂，该工厂提供不同类型的翻译实例。
 ```java
-factory = new TFactory();
+TFactory factory = new TranslatorFactory();
 ```
 
 ###4.*获得翻译实体*

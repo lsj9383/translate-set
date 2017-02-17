@@ -11,7 +11,7 @@ import com.lsj.trans.Translator;
 import com.lsj.trans.annotation.TranslatorComponent;
 import com.lsj.trans.exception.DupIdException;
 
-public abstract class AbstractTranslatorFactory implements TranslatorFactory {
+public abstract class AbstractTranslatorFactory implements TFactory {
 	
 	protected Map<String, Translator> translatorMap = new HashMap<>();
 	private List<String> workPackages = new ArrayList<>();

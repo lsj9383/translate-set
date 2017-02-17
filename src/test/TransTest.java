@@ -4,15 +4,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.lsj.trans.LANG;
-import com.lsj.trans.factory.TFactory;
 import com.lsj.trans.factory.TranslatorFactory;
+import com.lsj.trans.factory.TFactory;
 
 public class TransTest {
-	TranslatorFactory factory = null;
+	TFactory factory = null;
 	
 	@Before
 	public void setUp() throws Exception {
-		factory = new TFactory();
+		factory = new TranslatorFactory();
 	}
 
 	@Test

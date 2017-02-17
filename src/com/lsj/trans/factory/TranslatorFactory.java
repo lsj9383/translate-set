@@ -1,7 +1,17 @@
 package com.lsj.trans.factory;
 
 import com.lsj.trans.Translator;
+import com.lsj.trans.exception.DupIdException;
 
-public interface TranslatorFactory {
-	Translator get(String id);
+final public class TranslatorFactory extends AbstractTranslatorFactory{
+
+	public TranslatorFactory() throws ClassNotFoundException, InstantiationException, IllegalAccessException, DupIdException {
+		super();
+	}
+
+	@Override
+	public Translator get(String id) {
+		return translatorMap.get(id);
+	}
+
 }
