@@ -11,11 +11,14 @@
 将仓库的lib目录下的所有jar添加到classpath中。并确保ide的编码方式是**utf-8**。
 ###1.*最小的实例*
 ```java
-import com.lsj.trans.Dispatch;
+import com.lsj.trans.LANG;
+import com.lsj.trans.factory.TFactory;
+import com.lsj.trans.factory.TranslatorFactory;
+
 public class Main {
 	public static void main(String[] args) throws Exception {
-		Class.forName("com.lsj.trans.GoogleDispatch");		
-		System.out.println(Dispatch.Instance("google").Trans(LANG.EN, LANG.ZH, "hello world"));
+		factory = new TFactory();
+		System.out.println(factory.get("google").trans(LANG.EN, LANG.ZH, "hello world"));
 	}
 }
 ```
@@ -23,49 +26,38 @@ public class Main {
 ###2.*引入包*
 仅仅需要一个翻译转发的类，需要注意的是，这是一个抽象类不可实例化。
 ```java
-import com.lsj.Trans.Dispatch;
+import com.lsj.trans.LANG;							/* 翻译的语言支持 */
+import com.lsj.trans.factory.TFactory;				/* 翻译工厂 */
+import com.lsj.trans.factory.TranslatorFactory;		/* 工厂接口 */
 ```
 
-###3.*加载需要的类*
-在实际进行翻译之前，需要加载用到的转发类。
+###3.*实例化翻译工厂*
+在实际进行翻译之前，需要初始化翻译工厂，该工厂提供不同类型的翻译实例。
 ```java
-Class.forName("com.lsj.trans.BaiduDispatch");		//加载百度的翻译转发类
-Class.forName("com.lsj.trans.GoogleDispatch");		//加载Google的翻译转发类
-Class.forName("com.lsj.trans.JinshanDispatch");		//加载金山的翻译转发类
-Class.forName("com.lsj.trans.YoudaoDispatch");		//加载有道的翻译转发类
-Class.forName("com.lsj.trans.TencentDispatch");		//加载腾讯的翻译转发类
+factory = new TFactory();
 ```
 
 ###4.*获得翻译实体*
 有各种不同的翻译网站，每个网站对应一个类，并且每个网站类都是采用的单例模式。单例由Dispatch管理。当然获取翻译实体必须要事先**加载**，若没有加载则无法得到翻译实体(返回`null`)。
 ```java
-Dispatch dispatch = Dispatch.Instance("google");
+Translator lator = factory.get("google");
 ```
 
 ###5.*翻译*
 ```java
-String zhResult = dispatch.Trans(LANG.EN, LANG.ZH, "Learn Git and GitHub without any code!");		//英文翻译为中文
-String enResult = dispatch.Trans(LANG.ZH, LANG.EN, "希拉里败选后大哭");							//中文翻译为英文
+String zhResult = lator.trans(LANG.EN, LANG.ZH, "Learn Git and GitHub without any code!");		//英文翻译为中文
+String enResult = lator.trans(LANG.ZH, LANG.EN, "希拉里败选后大哭");							//中文翻译为英文
 ```
 
 #二、*API*
 该工具提供的API相当简单:<br>
 ###1.*获得翻译实体*
 ```JAVA
-dispatch = Dispatch.Instance("google");
-dispatch = Dispatch.Instance("Google");
-
-dispatch = Dispatch.Instance("baidu");
-dispatch = Dispatch.Instance("Baidu");
-
-dispatch = Dispatch.Instance("youdao");
-dispatch = Dispatch.Instance("Youdao");
-
-dispatch = Dispatch.Instance("jinshan");
-dispatch = Dispatch.Instance("Jinshan");
-
-dispatch = Dispatch.Instance("Tencent");
-dispatch = Dispatch.Instance("tencent");
+lator = factory.get("google");
+lator = factory.get("baidu");
+lator = factory.get("youdao");
+lator = factory.get("jinshan");
+lator = factory.get("tencent");
 ```
 ###2.*翻译*
 ```JAVA
@@ -75,7 +67,7 @@ dispatch = Dispatch.Instance("tencent");
  *英文 LANG.EN
  *
  */
-dispatch.Trans(LANG fromLang, LANG toLang, string);
+lator.trans(LANG fromLang, LANG toLang, string);
 ```
 
 #三、*扩展*
