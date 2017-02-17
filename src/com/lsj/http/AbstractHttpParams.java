@@ -1,9 +1,13 @@
 package com.lsj.http;
 
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 
 public abstract class AbstractHttpParams implements HttpParams{
 	protected final Map<String, String> params = new HashMap<>();
@@ -13,17 +17,28 @@ public abstract class AbstractHttpParams implements HttpParams{
 		params.put(key, value);
 		return this;
 	}
-
-	protected String readInputStream(InputStream is) throws Exception{
-		InputStreamReader ir = new InputStreamReader(is);	//将字节流转换为字符流，否则中文容易乱码
-		StringBuilder text = new StringBuilder();
-		char[] buffer = new char[1024];
-		int length = 0;
-		
-		while(((length = ir.read(buffer)) != -1)){
-			text.append(new String(buffer, 0, length));
-		}		
-		
-		return new String(text);
+	
+	@Override
+	public String send2String(String baseUrl) throws Exception {
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		try{
+			CloseableHttpResponse response = send(httpClient, baseUrl);
+			return EntityUtils.toString(response.getEntity());
+		}finally{
+			httpClient.close();
+		}
 	}
+	
+	@Override
+	public InputStream send2InputStream(String baseUrl) throws Exception {
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		try{
+			CloseableHttpResponse response = send(httpClient, baseUrl);
+			return response.getEntity().getContent();
+		}finally{
+			httpClient.close();
+		}
+	}
+	
+	abstract protected CloseableHttpResponse send(CloseableHttpClient httpClient, String baseUrl) throws Exception ;
 }

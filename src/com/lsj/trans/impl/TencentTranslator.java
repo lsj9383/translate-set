@@ -24,12 +24,11 @@ final public class TencentTranslator extends AbstractNetworkTranslator {
 				.put("tl", langMap.get(targ))
 				.put("st", query);
 
-		return params.send("http://fanyi.qq.com/api/translate");
+		return params.send2String("http://fanyi.qq.com/api/translate");
 	}
 	
 	@Override
 	protected String parseString(String jsonString){
-		System.out.println(jsonString);
 		StringBuilder str = new StringBuilder();
 		JSONObject rootObj = JSONObject.fromObject(jsonString);
 		JSONArray array = rootObj.getJSONArray("result");

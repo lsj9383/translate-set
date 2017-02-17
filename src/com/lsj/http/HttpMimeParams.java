@@ -10,12 +10,11 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 
 public class HttpMimeParams extends AbstractHttpParams {
 	
 	@Override
-	public String send(String baseUrl) throws Exception {
+	protected CloseableHttpResponse send(CloseableHttpClient httpClient, String baseUrl) throws Exception {
 		//1)构建实体
 		MultipartEntityBuilder entBuilder = MultipartEntityBuilder.create();		  
 		for (String key : params.keySet()) {
@@ -36,10 +35,8 @@ public class HttpMimeParams extends AbstractHttpParams {
 		HttpEntity reqEntity = entBuilder.build();
 		
 		//2)发送并等待回复
-		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpPost request = new HttpPost(baseUrl);
 		request.setEntity(reqEntity);
-		CloseableHttpResponse response = httpClient.execute(request);
-		return readInputStream(response.getEntity().getContent());
+		return httpClient.execute(request);
 	}
 }

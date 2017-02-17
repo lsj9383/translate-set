@@ -9,10 +9,10 @@ import com.lsj.trans.annotation.TranslatorComponent;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-@TranslatorComponent(id = "baidu")
-final public class BaiduTranslator extends AbstractNetworkTranslator {
+@TranslatorComponent(id = "bing")
+final public class BingTranslator extends AbstractNetworkTranslator {
 
-	public BaiduTranslator(){
+	public BingTranslator(){
 		langMap.put(LANG.EN, "en");
 		langMap.put(LANG.ZH, "zh");
 	}
@@ -20,12 +20,7 @@ final public class BaiduTranslator extends AbstractNetworkTranslator {
 	@Override
 	public String getResponse(LANG from, LANG targ, String query) throws Exception{
 		
-		HttpParams params = new HttpPostParams()
-				.put("from", langMap.get(from))
-				.put("to", langMap.get(targ))
-				.put("query", query)
-				.put("transtype", "translang")
-				.put("simple_means_flag", "3");
+		HttpParams params = new HttpPostParams();
 		
 		return params.send2String("http://fanyi.baidu.com/v2transapi");
 	}

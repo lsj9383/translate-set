@@ -29,7 +29,7 @@ final public class YoudaoTranslator extends AbstractNetworkTranslator {
 				.put("action", "FY_BY_CLICKBUTTON")
 				.put("typoResult", "true");
 		
-		return params.send("http://fanyi.youdao.com/translate?smartresult=dict&smartresult=rule&smartresult=ugc&sessionFrom=https://www.baidu.com/link");
+		return params.send2String("http://fanyi.youdao.com/translate?smartresult=dict&smartresult=rule&smartresult=ugc&sessionFrom=https://www.baidu.com/link");
 	}
 	
 	@Override

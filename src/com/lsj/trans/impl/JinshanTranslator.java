@@ -23,7 +23,7 @@ final public class JinshanTranslator extends AbstractNetworkTranslator {
 				.put("t", langMap.get(targ))
 				.put("w", query);
 		
-		return params.send("http://fy.iciba.com/ajax.php?a=fy");
+		return params.send2String("http://fy.iciba.com/ajax.php?a=fy");
 	}
 	
 	

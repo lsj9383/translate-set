@@ -54,7 +54,7 @@ final public class GoogleTranslator extends AbstractNetworkTranslator {
 				.put("tk", tk)
 				.put("q", query);
 		
-		return params.send("http://translate.google.cn/translate_a/single");
+		return params.send2String("http://translate.google.cn/translate_a/single");
 	}
 	
 	@Override
