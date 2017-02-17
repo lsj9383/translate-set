@@ -2,7 +2,7 @@ package com.lsj.trans.impl;
 
 import com.lsj.http.HttpParams;
 import com.lsj.http.HttpPostParams;
-import com.lsj.trans.AbstractNetworkTranslator;
+import com.lsj.trans.AbstractOnlineTranslator;
 import com.lsj.trans.LANG;
 import com.lsj.trans.annotation.TranslatorComponent;
 
@@ -10,7 +10,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @TranslatorComponent(id = "tencent")
-final public class TencentTranslator extends AbstractNetworkTranslator {
+final public class TencentTranslator extends AbstractOnlineTranslator {
 
 	public TencentTranslator(){
 		langMap.put(LANG.EN, "1");

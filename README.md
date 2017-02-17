@@ -73,7 +73,7 @@ lator.trans(LANG fromLang, LANG toLang, string);
 #三、*扩展*
 扩展这里介绍如何使用本项目提供的构架扩展翻译源。只要用户知道翻译所需要发送的http请求的详细信息以及返回数据的解析方式，那么用户就可以通过继承Dispatch类和使用HttpParams类来完成自己的翻译实体类。作自行扩展主要需要知道以下类:
 ###1.*HttpParams*
-这是一个接口，它提供两个方法`put()`和`Send()`，分布用于添加待发送的数据以及进行发送。
+这是一个接口，它提供三个方法`put() send2InputStream() send2String()`，分布用于添加待发送的数据以及进行发送。
 ####1).*初始化*
 当前支持有限，只支持两种子类实现。
 ```java
@@ -85,41 +85,41 @@ HttpParams mimeParams = new HttpMimeParams();	//用来添加并保存Multipart/f
 都只使用了最简单的情况，以key-value的方式将数据进行保存。需要注意的是, put方法是会返回对象本身的，因此可以通过链式方式进行数据的添加，这样代码更为美观，更少冗余。
 ```java
 Params.put("from", langMap.get(from))
-		.put("to", langMap.get(targ))
-		.put("query", query)
-		.put("transtype", "translang")
-		.put("simple_means_flag", "3");
+	.put("to", langMap.get(targ))
+	.put("query", query)
+	.put("transtype", "translang")
+	.put("simple_means_flag", "3");
 ```
 ####3).*发送请求*
-请求的数据添加好后，就可以调用Send()方法发送请求数据，并且得到一个String类型的返回数据。
+请求的数据添加好后，就可以调用send2String()方法发送请求数据，并且得到一个String类型的返回数据。
 ```java
 String baseUrl = "http://....";
-Params.Send(baseUrl);
+String strResponse = Params.send2String(baseUrl);
 ```
-###2.*自定义翻译类*
-HttpParams抽象类只是个工具类，可以单独抽取出来使用，为了更方便我们的开发，提供了Dispatch抽象类，我们开发新类都应该继承于该抽象类。除此外还需关注一下几点
-####1).对静态初始化函数的实现
-翻译属于服务类，不同的Dispatch服务类只需要一个对象即可。Dispatch类中管理了classMap对象，这个对象是个HashMap，用于缓存翻译对象。在自定义翻译类中，需要用静态代码块在classMap中缓存对象，这样便将翻译对象交给了Dispatch管理。由于静态代码块只会在类加载到jvm中的时候才会执行，这也是要通过Class.forName("com...")进行类加载的原因。
+服务器的响应也可以用更底层的InputStream来获取
 ```java
-package com.lsj.dispatch;
-
-public class MyDispatch extends Dispatch {
-	static {
-		Dispatch instance = new MyDispatch();
-		classMap.put("myDispatch", instance);
-	}
+String baseUrl = "http://....";
+InputStream is = Params.send2InputStream(baseUrl);
+```
+###2.*自定义在线翻译类*
+HttpParams抽象类只是个工具类，可以单独抽取出来使用。为了更方便我们的开发，提供了AbstractOnlineTranslator抽象类，我们开发新的在线翻译类都应该继承于该抽象类。除此外还需关注一下几点
+####1).类定义
+类定义需要增加一个注解，注解里面是该翻译类的id。翻译工厂在实例化的时候会将标注了注解的类实例化，并存放在工程的缓存中，用户通过id可以获得该实例，正如之前所看到的代码。下面是一个类定义的示例
+```java
+@TranslatorComponent(id = "translator-id")
+final public class UserTranslator extends AbstractOnlineTranslator {
+	
 }
 ```
-如上述所示，在static将当前类的实例放入classMap中，这样通过`Dispatch.Instance("myDispatch")`方法就能取出放入的实例。需要注意的是，由于static是在类加载的时候才调用，客户端进行类加载`Class.forName("com.lsj.dispatch.MyDispatch");`这样才会调用`MyDispatch类`的static构造函数。
 ####2).翻译方法
 在trans方法中，就进行具体的翻译工作。提供翻译在线api所需要的参数，再将其发送过去获取回应后再解析即可。
 ```java
 @Override
-public String Trans(String from, String targ, String query) throws Exception{
+public String getResponse(String from, String targ, String query) throws Exception{
 	
 	String jsonString = new HttpPostParams()
 							.put(key, value)
-							.Send("http://...");
+							.send2String("http://...");
 	
 	return ParseJsonString(jsonString);
 }
@@ -135,4 +135,4 @@ protected String ParseJsonString(String jsonString){
 }
 ```
 
-以上就是一个完整的Dispatch扩展的开发方式，[这里](https://github.com/lsj9383/TranslateSet/blob/master/src/com/lsj/Trans/JinshanDispatch.java) 可以参考一个Dispatch子类的实现。
+以上就是一个完整的在自定义在线翻译类的开发方式，[这里](https://github.com/lsj9383/TranslateSet/blob/master/src/com/lsj/Trans/JinshanDispatch.java) 可以参考一个Dispatch子类的实现。

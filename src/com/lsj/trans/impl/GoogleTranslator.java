@@ -6,14 +6,14 @@ import javax.script.ScriptEngineManager;
 
 import com.lsj.http.HttpParams;
 import com.lsj.http.HttpPostParams;
-import com.lsj.trans.AbstractNetworkTranslator;
+import com.lsj.trans.AbstractOnlineTranslator;
 import com.lsj.trans.LANG;
 import com.lsj.trans.annotation.TranslatorComponent;
 
 import net.sf.json.JSONArray;
 
 @TranslatorComponent(id = "google")
-final public class GoogleTranslator extends AbstractNetworkTranslator {
+final public class GoogleTranslator extends AbstractOnlineTranslator {
 	private static ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
 	
 	public GoogleTranslator(){
