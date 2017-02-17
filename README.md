@@ -24,7 +24,7 @@ public class Main {
 ```
 
 ###2.*引入包*
-仅仅需要一个翻译转发的类，需要注意的是，这是一个抽象类不可实例化。
+引入所需要的package。
 ```java
 import com.lsj.trans.LANG;							/* 翻译的语言支持 */
 import com.lsj.trans.factory.TFactory;				/* 工厂接口 */
@@ -38,7 +38,7 @@ TFactory factory = new TranslatorFactory();
 ```
 
 ###4.*获得翻译实体*
-有各种不同的翻译网站，每个网站对应一个类，并且每个网站类都是采用的单例模式。单例由Dispatch管理。当然获取翻译实体必须要事先**加载**，若没有加载则无法得到翻译实体(返回`null`)。
+有各种不同的翻译实例，不同的实例有不同的翻译能力。由工厂管理。工厂在初始化的时候会将用注解标注了的翻译类加载到工厂缓存中，工厂相同的情况，使用相同id获得的翻译实例是完全相同的，相当于单例模式。
 ```java
 Translator lator = factory.get("google");
 ```
