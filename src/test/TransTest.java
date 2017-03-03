@@ -33,6 +33,7 @@ public class TransTest {
 		System.out.println("谷歌 : " + factory.get("google").trans(LANG.ZH, LANG.EN, origin));
 		System.out.println("腾讯 : " + factory.get("tencent").trans(LANG.ZH, LANG.EN, origin));
 	}
+	
 	/*
 	@Test
 	public void testTime() throws Exception {
@@ -47,4 +48,5 @@ public class TransTest {
 		}
 	}
 	*/
+
 }

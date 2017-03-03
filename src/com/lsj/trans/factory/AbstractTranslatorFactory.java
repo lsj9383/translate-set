@@ -24,6 +24,7 @@ public abstract class AbstractTranslatorFactory implements TFactory {
 	
 	protected Map<String, Translator> translatorMap = new HashMap<>();
 	private List<String> workPackages = new ArrayList<>();
+
 	private List<Class<? extends AbstractOnlineTranslator>> translatorClasses = Arrays.asList(
 			BaiduTranslator.class,
 			GoogleTranslator.class,
@@ -80,6 +81,7 @@ public abstract class AbstractTranslatorFactory implements TFactory {
 		List<String> classesName = new ArrayList<>();
 		ClassLoader loader = getClass().getClassLoader();
 		URL url = loader.getResource(packageName.replace(".", "/"));
+
 		File packageDir = new File(new URI(url.getPath()).getPath());
 		for(File classFile : packageDir.listFiles()){
 			String classNickName = classFile.getName();
