@@ -49,7 +49,10 @@ String zhResult = lator.trans(LANG.EN, LANG.ZH, "Learn Git and GitHub without an
 String enResult = lator.trans(LANG.ZH, LANG.EN, "希拉里败选后大哭");							//中文翻译为英文
 ```
 
+翻译是通过发送HTTP请求到指定服务器，服务器回应数据并解析结果来实现的。若解析成功，trans方法直接返回翻译结果，但若解析失败将会trans方法将会返回服务器回应的原始数据，以便调试。
+
 #二、*API*
+
 该工具提供的API相当简单:<br>
 ###1.*获得翻译实体*
 ```JAVA

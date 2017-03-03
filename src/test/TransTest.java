@@ -33,5 +33,18 @@ public class TransTest {
 		System.out.println("谷歌 : " + factory.get("google").trans(LANG.ZH, LANG.EN, origin));
 		System.out.println("腾讯 : " + factory.get("tencent").trans(LANG.ZH, LANG.EN, origin));
 	}
-
+	/*
+	@Test
+	public void testTime() throws Exception {
+		String origin = "Xamarin.Forms has several layouts and features for organizing content on screen. Each layout control is described below, as well as details on how to handle screen orientation changes:";
+		Translator lator = factory.get("baidu");
+		int cnt = 0;
+		
+		while(true){
+			cnt++;
+			System.out.println(cnt+" : "+lator.trans(LANG.EN, LANG.ZH, origin));
+			Thread.sleep(10);
+		}
+	}
+	*/
 }

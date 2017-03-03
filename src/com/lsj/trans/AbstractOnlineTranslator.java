@@ -8,8 +8,14 @@ public abstract class AbstractOnlineTranslator implements Translator {
 	
 	@Override
 	final public String trans(LANG from, LANG targ, String query) throws Exception {
-		String result = parseString(getResponse(from, targ, query));
-		return result;
+		String response = "";
+		try{
+			response = getResponse(from, targ, query);
+			String result = parseString(response);
+			return result;
+		}catch(Exception e){
+			return response;
+		}
 	}
 	
 	abstract protected String getResponse(LANG from, LANG targ, String query) throws Exception ;
