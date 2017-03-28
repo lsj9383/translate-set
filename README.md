@@ -6,6 +6,7 @@
 * [腾讯翻译](http://fanyi.qq.com/)
 * [有道翻译](http://fanyi.youdao.com/)
 * [金山翻译](http://fy.iciba.com/)
+* [欧米翻译](http://www.alifanyi1688.com/)
 
 #一、*快速开始*
 将仓库的lib目录下的所有jar添加到classpath中。并确保ide的编码方式是**【UTF-8】**。
@@ -61,6 +62,7 @@ lator = factory.get("baidu");
 lator = factory.get("youdao");
 lator = factory.get("jinshan");
 lator = factory.get("tencent");
+lator = factory.get("omi");
 ```
 ###2.*翻译*
 ```JAVA
