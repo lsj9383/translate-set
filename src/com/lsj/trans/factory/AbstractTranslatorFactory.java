@@ -19,6 +19,7 @@ import com.lsj.trans.impl.GoogleTranslator;
 import com.lsj.trans.impl.JinshanTranslator;
 import com.lsj.trans.impl.TencentTranslator;
 import com.lsj.trans.impl.YoudaoTranslator;
+import com.lsj.trans.impl.OmiTranslator;
 
 public abstract class AbstractTranslatorFactory implements TFactory {
 	
@@ -30,6 +31,7 @@ public abstract class AbstractTranslatorFactory implements TFactory {
 			GoogleTranslator.class,
 			JinshanTranslator.class,
 			TencentTranslator.class,
+			OmiTranslator.class,
 			YoudaoTranslator.class);
 			
 	public AbstractTranslatorFactory() throws ClassNotFoundException, InstantiationException, IllegalAccessException, DupIdException, URISyntaxException{

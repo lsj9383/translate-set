@@ -23,6 +23,7 @@ public class TransTest {
 		System.out.println("百度 : " + factory.get("baidu").trans(LANG.EN, LANG.ZH, origin));
 		System.out.println("谷歌 : " + factory.get("google").trans(LANG.EN, LANG.ZH, origin));
 		System.out.println("腾讯 : " + factory.get("tencent").trans(LANG.EN, LANG.ZH, origin));
+		System.out.println("欧米 : " + factory.get("omi").trans(LANG.EN, LANG.ZH, origin));
 		System.out.println("\n");
 		
 	
@@ -32,6 +33,7 @@ public class TransTest {
 		System.out.println("百度 : " + factory.get("baidu").trans(LANG.ZH, LANG.EN, origin));
 		System.out.println("谷歌 : " + factory.get("google").trans(LANG.ZH, LANG.EN, origin));
 		System.out.println("腾讯 : " + factory.get("tencent").trans(LANG.ZH, LANG.EN, origin));
+		System.out.println("欧米 : " + factory.get("omi").trans(LANG.ZH, LANG.EN, origin));
 	}
 	
 	/*
