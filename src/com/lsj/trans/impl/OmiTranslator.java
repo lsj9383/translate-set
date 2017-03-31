@@ -6,6 +6,9 @@ import com.lsj.trans.AbstractOnlineTranslator;
 import com.lsj.trans.LANG;
 import com.lsj.trans.annotation.TranslatorComponent;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 @TranslatorComponent(id = "omi")
 final public class OmiTranslator extends AbstractOnlineTranslator {
 
@@ -27,17 +30,14 @@ final public class OmiTranslator extends AbstractOnlineTranslator {
 	
 	@Override
 	protected String parseString(String jsonString){
-		/*
+		
 		JSONObject jsonObject = JSONObject.fromObject(jsonString);
-		JSONArray segments = jsonObject.getJSONObject("trans_result").getJSONArray("data");
+		JSONArray segments = jsonObject.getJSONArray("sentsResults").getJSONArray(1);
 		StringBuilder result = new StringBuilder();
 		
 		for(int i=0; i<segments.size(); i++){
-			result.append(i==0?"":"\n");
-			result.append(segments.getJSONObject(i).getString("dst"));
+			result.append(segments.getString(i));
 		}
-		return new String(result);
-		*/
-		return jsonString;
+		return result.toString();
 	}
 }
