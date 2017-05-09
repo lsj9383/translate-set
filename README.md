@@ -79,7 +79,7 @@ lator.trans(LANG fromLang, LANG toLang, string);
 扩展这里介绍如何使用本项目提供的构架扩展翻译源。只要用户知道翻译所需要发送的http请求的详细信息以及返回数据的解析方式，那么用户就可以通过继承Dispatch类和使用HttpParams类来完成自己的翻译实体类。作自行扩展主要需要知道以下类:
 ### 1.*HttpParams*
 这是一个接口，它提供三个方法`put() send2InputStream() send2String()`，分布用于添加待发送的数据以及进行发送。
-####1).*初始化*
+#### 1).*初始化*
 当前支持有限，只支持两种子类实现。
 ```java
 HttpParams postParams = new HttpPostParams();	//用来添加并保存Post的数据
