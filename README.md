@@ -1,5 +1,5 @@
 # TranslateSet
-一种小型的翻译集合工具，[这里](https://github.com/lsj9383/translate-set/blob/master/src/test/TransTest.java) 是一个使用示例。并且提供[在线翻译](http://139.199.209.106/trans/) 。
+一种小型的翻译集合工具，[这里](https://github.com/lsj9383/translate-set/blob/master/src/test/TransTest.java) 是一个使用示例。
 目前仅支持**汉英互译**，支持的翻译来源:
 * [谷歌翻译](http://translate.google.cn/)
 * [百度翻译](http://fanyi.baidu.com/)
